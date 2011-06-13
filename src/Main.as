@@ -1,5 +1,6 @@
 package 
 {
+	import flash.ui.Mouse;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGame;
 	import states.MenuState;
@@ -20,6 +21,7 @@ package
 		{			
 			// Entry - invoke FlxGame constructor
 			super(800, 600, MenuState, 1);
+			Mouse.show();
 		}
 	}
 }
