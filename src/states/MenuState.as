@@ -28,16 +28,22 @@ package states
 			var tTitle:FlxText = new FlxText(0, 150, FlxG.width, "\"Chance Encounter\"");
 			tTitle.setFormat("Bertham", 96, 0x000000, "center");
 			
-			m_tStartButton = new BubbleButton(FlxG.width * 0.5, 400, "New Game");
+			m_tStartButton = new BubbleButton(FlxG.width * 0.5, 400, "New Game", startGame);
 			
 			add(tMeTxt);
 			add(tTitle);
 			add(m_tStartButton);
 		}
 		
-		override public function update():void
+		private function startGame():void
 		{
-			super.update();
+			// Begin fade prior to starting game
+			FlxG.fade(0xffffffff, 0.5, onFade);
+		}
+		
+		private function onFade():void
+		{
+			FlxG.switchState( new PlayState() );
 		}
 	}
 }
