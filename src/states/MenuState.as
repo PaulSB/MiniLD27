@@ -2,6 +2,7 @@ package states
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;
 	import ui.BubbleButton;
@@ -14,6 +15,8 @@ package states
 	{
 		[Embed(source = '../../../Bertham.ttf', fontFamily = "Bertham", embedAsCFF = "false")] private var junk:String;
 		
+		[Embed(source = '../../data/Background.png')] static public var imgBG:Class;
+		
 		private var m_tStartButton:BubbleButton;
 		
 		override public function create():void
@@ -21,6 +24,9 @@ package states
 			super.create();
 			
 			FlxG.bgColor = 0xffffffff;
+			var bg:FlxSprite = new FlxSprite();
+			bg.loadGraphic(imgBG);
+			add(bg);
 			
 			// Text + logo
 			var tMeTxt:FlxText = new FlxText(0, FlxG.height -40, FlxG.width, "A game by Paul S Burgess for Mini-Ludum Dare #27");
@@ -28,7 +34,7 @@ package states
 			var tTitle:FlxText = new FlxText(0, 150, FlxG.width, "\"Chance Encounter\"");
 			tTitle.setFormat("Bertham", 96, 0x000000, "center");
 			
-			m_tStartButton = new BubbleButton(FlxG.width * 0.5, 400, "New Game", startGame);
+			m_tStartButton = new BubbleButton(FlxG.width * 0.5, 400, "PLAY", startGame);
 			
 			add(tMeTxt);
 			add(tTitle);

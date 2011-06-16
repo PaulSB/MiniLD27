@@ -1,6 +1,7 @@
 package states 
 {
 	import org.flixel.FlxG;
+	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	
 	/**
@@ -13,7 +14,10 @@ package states
 		{
 			super.create();
 			
-			FlxG.bgColor = 0xffa0a0a0;	// TEMP for debug
+			FlxG.bgColor = 0xffffffff;
+			var bg:FlxSprite = new FlxSprite();
+			bg.loadGraphic(MenuState.imgBG);
+			add(bg);
 			
 			FlxG.flash(0xffffffff, 0.5, onUnFade);
 		}
