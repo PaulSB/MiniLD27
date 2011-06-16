@@ -31,10 +31,10 @@ package states
 			// Text + logo
 			var tMeTxt:FlxText = new FlxText(0, FlxG.height -40, FlxG.width, "A game by Paul S Burgess for Mini-Ludum Dare #27");
 			tMeTxt.setFormat("Bertham", 24, 0x000000, "center");
-			var tTitle:FlxText = new FlxText(0, 150, FlxG.width, "\"Chance Encounter\"");
-			tTitle.setFormat("Bertham", 96, 0x000000, "center");
+			var tTitle:FlxText = new FlxText(FlxG.width * 0.5, 20, FlxG.width * 0.5 -20, "\"Chance Encounter\"");
+			tTitle.setFormat("Bertham", 48, 0x000000, "right");
 			
-			m_tStartButton = new BubbleButton(FlxG.width * 0.5, 400, "PLAY", startGame);
+			m_tStartButton = new BubbleButton(FlxG.width * 0.5, FlxG.height -150, "PLAY", startGame);
 			
 			add(tMeTxt);
 			add(tTitle);

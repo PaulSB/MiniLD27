@@ -21,7 +21,7 @@ package ui
 			if(caption != null)
 			{
 				label = new FlxText(0,0,320,caption);
-				label.setFormat("Bertham",32,0x333333,"center");
+				label.setFormat("Bertham",32,0x000000,"center");
 				labelOffset = new FlxPoint(0,24);
 			}
 			loadGraphic(imgBubbleButton,true,false,320,80);
