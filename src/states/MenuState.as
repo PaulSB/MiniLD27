@@ -34,7 +34,7 @@ package states
 			var tTitle:FlxText = new FlxText(0, 80, FlxG.width * 0.5, "\"Chance Encounter\"");
 			tTitle.setFormat("Bertham", 48, 0x000000, "center");
 			
-			m_tStartButton = new BubbleButton(FlxG.width * 0.5, FlxG.height -150, "PLAY", startGame);
+			m_tStartButton = new BubbleButton(FlxG.width * 0.5, FlxG.height * 0.5, "PLAY", startGame);
 			
 			add(tMeTxt);
 			add(tTitle);

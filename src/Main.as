@@ -20,8 +20,7 @@ package
 		public function Main()
 		{			
 			// Entry - invoke FlxGame constructor
-			super(800, 600, MenuState, 1);
-			Mouse.show();
+			super(800, 600, MenuState, 1, 60, 30, true);			
 		}
 	}
 }
