@@ -16,6 +16,7 @@ package states
 		[Embed(source = '../../../Bertham.ttf', fontFamily = "Bertham", embedAsCFF = "false")] private var junk:String;
 		
 		[Embed(source = '../../data/textures/Background.png')] static public var imgBG:Class;
+		[Embed(source = '../../data/textures/Outside.png')] static public var imgOutside:Class;
 		
 		private var m_tStartButton:BubbleButton;
 		
@@ -24,6 +25,13 @@ package states
 			super.create();
 			
 			FlxG.bgColor = 0xffffffff;
+			
+			var outside:FlxSprite = new FlxSprite();
+			outside.loadGraphic(imgOutside);
+			outside.x = FlxG.width - outside.width;
+			outside.y = 160;
+			add(outside);
+			
 			var bg:FlxSprite = new FlxSprite();
 			bg.loadGraphic(imgBG);
 			add(bg);

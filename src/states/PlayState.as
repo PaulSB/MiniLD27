@@ -40,6 +40,13 @@ package states
 			s_layerUI = new FlxGroup;
 			
 			FlxG.bgColor = 0xffffffff;
+			
+			var outside:FlxSprite = new FlxSprite();
+			outside.loadGraphic(MenuState.imgOutside);
+			outside.x = FlxG.width - outside.width;
+			outside.y = 160;
+			s_layerBackground.add(outside);
+			
 			var bg:FlxSprite = new FlxSprite();
 			bg.loadGraphic(MenuState.imgBG);
 			s_layerBackground.add(bg);
@@ -81,6 +88,8 @@ package states
 				{
 					m_npc = new FlxSprite;
 					m_npc.loadGraphic(imgNPCreadingheadup);
+					m_npc.x = (FlxG.width - m_npc.width) * 0.5;
+					m_npc.y = FlxG.height - m_npc.height;
 					s_layerScene.add(m_npc);
 					
 					m_currentAnim = eANIM_NONE;
