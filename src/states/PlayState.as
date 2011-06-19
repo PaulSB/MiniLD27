@@ -76,7 +76,7 @@ package states
 		{
 			// Begin game
 			m_currentAnim = eANIM_NPC_ENTER;
-			m_animTimer = 5.0;
+			m_animTimer = 4.0;
 		}
 		
 		private function updateAnim():void
@@ -99,6 +99,8 @@ package states
 					
 					m_currentAnim = eANIM_NONE;
 					m_animTimer = 0.0;
+					
+					m_dialogue.initDialogueNode(DialogueManager.eDIALOGUE_OPENER);
 				}
 			}
 		}

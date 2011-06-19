@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dialogue>
 	<buttons>
-		<button name="Hi" />
+		<button name="HI" text="Hi"> <body>Hi</body> </button>
 	</buttons>
 	<player>
 	</player>
