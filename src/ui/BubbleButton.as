@@ -10,7 +10,7 @@ package ui
 	 */
 	public class BubbleButton extends FlxButton
 	{
-		[Embed(source = '../../data/BubbleButton.png')] private var imgBubbleButton:Class;
+		[Embed(source = '../../data/textures/BubbleButton.png')] private var imgBubbleButton:Class;
 		
 		public function BubbleButton(centreX:Number, centreY:Number, caption:String = null, OnClick:Function = null) 
 		{

@@ -15,7 +15,7 @@ package states
 	{
 		[Embed(source = '../../../Bertham.ttf', fontFamily = "Bertham", embedAsCFF = "false")] private var junk:String;
 		
-		[Embed(source = '../../data/Background.png')] static public var imgBG:Class;
+		[Embed(source = '../../data/textures/Background.png')] static public var imgBG:Class;
 		
 		private var m_tStartButton:BubbleButton;
 		
