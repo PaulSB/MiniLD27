@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dialogue>
+	<buttons>
+		<button name="Hi" />
+	</buttons>
+	<player>
+	</player>
+	<npc>
+	</npc>
+</dialogue>

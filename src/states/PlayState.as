@@ -1,5 +1,6 @@
 package states 
 {
+	import dialogue.DialogueManager;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
@@ -22,7 +23,8 @@ package states
 		private var m_animTimer:Number = 0.0;
 		
 		// Graphic objects
-		private var m_npc:FlxSprite;	// The character you are talking to
+		private var m_npc:FlxSprite;			// The character you are talking to
+		private var m_dialogue:DialogueManager;	// The dialogue manager object, containing all text and conversation options
 		
 		// Render layers
 		public static var s_layerOutside:FlxGroup;
@@ -50,6 +52,9 @@ package states
 			var bg:FlxSprite = new FlxSprite();
 			bg.loadGraphic(MenuState.imgBG);
 			s_layerBackground.add(bg);
+			
+			m_dialogue = new DialogueManager;
+			s_layerUI.add(m_dialogue);
 			
 			// Add render layers
 			add(s_layerOutside);
