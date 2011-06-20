@@ -74,6 +74,7 @@
     <hidden path="data\Thumbs.db" />
     <hidden path="data\textures\Thumbs.db" />
     <hidden path="data\textures\npc\Thumbs.db" />
+    <hidden path="data\textures\ui\Thumbs.db" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />

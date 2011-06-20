@@ -19,10 +19,8 @@ package dialogue
 			m_xmlData = new XML(str);
 		}
 		
-		public function getButtonText():String
+		public function getButtonTextByName(stringID:String):String
 		{
-			//var buttonList:XMLList = m_xmlData.buttons.children();
-			
 			var numEntries:int = m_xmlData.buttons.children().length();
 			
             var nameList:XMLList = m_xmlData.buttons.button.@name;  
@@ -30,9 +28,27 @@ package dialogue
 			
 			for (var loop:int = 0; loop < numEntries; loop++)
 			{
-				if (nameList[loop] == "HI")
+				if (nameList[loop] == stringID)
 				{
 					return textList[loop];
+				}
+			}
+			
+			return "INVALID STRING";
+		}
+		
+		public function getFullTextByID(id:uint):String
+		{
+			var numEntries:int = m_xmlData.buttons.children().length();
+			
+            var idList:XMLList = m_xmlData.buttons.button.@id;  
+            var bodyList:XMLList =  m_xmlData.buttons.button.body;
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == id)
+				{
+					return bodyList[loop];
 				}
 			}
 			

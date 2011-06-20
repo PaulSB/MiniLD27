@@ -3,6 +3,7 @@ package dialogue
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import ui.BubbleButton;
+	import ui.TextPanel;
 	
 	/**
 	 * MiniLD 27 - "All Talk"
@@ -25,6 +26,7 @@ package dialogue
 		
 		// Graphic objects
 		private var m_optionButtons:FlxGroup;
+		private var m_textbox:TextPanel;		// Text box displaying spoken text
 		
 		public function DialogueManager() 
 		{
@@ -42,6 +44,10 @@ package dialogue
 			
 			add(m_optionButtons);
 			
+			m_textbox = new TextPanel;
+			m_textbox.visible = false;
+			add(m_textbox);
+			
 			// Init xml data
 			m_dialogueData = new DialogueData;
 		}
@@ -54,9 +60,12 @@ package dialogue
 			{
 				resetButtons();
 				
+				// Dialogue option
 				var button:BubbleButton = m_optionButtons.members[0];
-				button.label.text = m_dialogueData.getButtonText();
+				button.label.text = m_dialogueData.getButtonTextByName("HI");
 				button.velocity.y = BUTTON_Y_VELOCITY;
+				// Result callback
+				button.onUp = processOption;
 			}
 		}
 		
@@ -65,6 +74,21 @@ package dialogue
 			for each (var button:BubbleButton in m_optionButtons.members)
 			{
 				button.setPos(BUTTON_X_POS, BUTTON_Y_POS_START);
+				button.velocity.y = 0;
+			}
+		}
+		
+		private function processOption():void
+		{
+			if (m_currentNode == eDIALOGUE_OPENER)
+			{
+				resetButtons();
+				
+				// TO DO: multiple response possibilities
+				var responseText:String = m_dialogueData.getFullTextByID(BubbleButton.m_lastButtonIDClicked);
+				m_textbox.SetupPanel((FlxG.width - m_textbox.GetSize().x) * 0.5, FlxG.height - m_textbox.GetSize().y, responseText);
+				
+				// TO DO: Next dialogue node...
 			}
 		}
 	}
