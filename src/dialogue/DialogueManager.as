@@ -11,9 +11,14 @@ package dialogue
 	 */
 	public class DialogueManager extends FlxGroup
 	{
-		// Dialogue node IDs
+		// Dialogue node IDs	***THESE ARE HARD-CODED INTO XML AND CAN NOT CHANGE!!!***
 		public static const eDIALOGUE_NONE:uint = 0;
 		public static const eDIALOGUE_OPENER:uint = 1;
+		
+		// State of dialogue at given node
+		private const eDIALOGUESTATE_BUTTONS:uint = 0;
+		private const eDIALOGUESTATE_PLAYERSAY:uint = 1;
+		private const eDIALOGUESTATE_NPCSAY:uint = 2;
 		
 		// Constants
 		private const MAX_OPTION_BUTTONS:int = 8;
@@ -22,11 +27,13 @@ package dialogue
 		private const BUTTON_Y_VELOCITY:Number = -10.0;
 		
 		private var m_currentNode:uint = eDIALOGUE_NONE;
+		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
 		
 		// Graphic objects
 		private var m_optionButtons:FlxGroup;
-		private var m_textbox:TextPanel;		// Text box displaying spoken text
+		private var m_playerTextbox:TextPanel;		// Text box displaying spoken text
+		private var m_npcTextbox:TextPanel;
 		
 		public function DialogueManager() 
 		{
@@ -44,9 +51,13 @@ package dialogue
 			
 			add(m_optionButtons);
 			
-			m_textbox = new TextPanel;
-			m_textbox.visible = false;
-			add(m_textbox);
+			m_playerTextbox = new TextPanel(true);
+			m_playerTextbox.visible = false;
+			add(m_playerTextbox);
+			
+			m_npcTextbox = new TextPanel();
+			m_npcTextbox.visible = false;
+			add(m_npcTextbox);
 			
 			// Init xml data
 			m_dialogueData = new DialogueData;
@@ -65,7 +76,9 @@ package dialogue
 				button.label.text = m_dialogueData.getButtonTextByName("HI");
 				button.velocity.y = BUTTON_Y_VELOCITY;
 				// Result callback
-				button.onUp = processOption;
+				button.onUp = process;
+				
+				m_currentState = eDIALOGUESTATE_BUTTONS;
 			}
 		}
 		
@@ -78,17 +91,35 @@ package dialogue
 			}
 		}
 		
-		private function processOption():void
+		private function process():void
 		{
 			if (m_currentNode == eDIALOGUE_OPENER)
 			{
-				resetButtons();
-				
-				// TO DO: multiple response possibilities
-				var responseText:String = m_dialogueData.getFullTextByID(BubbleButton.m_lastButtonIDClicked);
-				m_textbox.SetupPanel((FlxG.width - m_textbox.GetSize().x) * 0.5, FlxG.height - m_textbox.GetSize().y, responseText);
-				
-				// TO DO: Next dialogue node...
+				if (m_currentState == eDIALOGUESTATE_BUTTONS)
+				{
+					m_npcTextbox.visible = false;
+					
+					m_currentState = eDIALOGUESTATE_PLAYERSAY;
+					
+					resetButtons();
+					
+					var bodyText:String = m_dialogueData.getPlayerTextByButtonID(BubbleButton.m_lastButtonIDClicked);
+					
+					m_playerTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, FlxG.height - m_playerTextbox.GetSize().y +0,
+												bodyText, process);
+				}
+				else if (m_currentState == eDIALOGUESTATE_PLAYERSAY)
+				{
+					m_playerTextbox.visible = false;
+					
+					m_currentState = eDIALOGUESTATE_NPCSAY;
+					
+					var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked);
+					
+					m_npcTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, 0, responseText);
+					
+					initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked));
+				}
 			}
 		}
 	}

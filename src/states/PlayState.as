@@ -1,6 +1,7 @@
 package states 
 {
 	import dialogue.DialogueManager;
+	import game.NPC;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
@@ -12,19 +13,9 @@ package states
 	 */
 	public class PlayState extends FlxState
 	{
-		[Embed(source = '../../data/textures/npc/NPC_readingheadup.png')] private var imgNPCreadingheadup:Class;
-		
-		// Pseudo-enums
-		private const eANIM_NONE:uint = 0;
-		private const eANIM_NPC_ENTER:uint = 1;
-		
-		// Member vars
-		private var m_currentAnim:uint = eANIM_NONE;
-		private var m_animTimer:Number = 0.0;
-		
 		// Graphic objects
-		private var m_npc:FlxSprite;			// The character you are talking to
-		private var m_dialogue:DialogueManager;	// The dialogue manager object, containing all text and conversation options
+		private var m_npc:NPC;							// The character you are talking to
+		public static var m_dialogue:DialogueManager;	// The dialogue manager object, containing all text and conversation options
 		
 		// Render layers
 		public static var s_layerOutside:FlxGroup;
@@ -53,6 +44,9 @@ package states
 			bg.loadGraphic(MenuState.imgBG);
 			s_layerBackground.add(bg);
 			
+			m_npc = new NPC;
+			s_layerScene.add(m_npc);
+			
 			m_dialogue = new DialogueManager;
 			s_layerUI.add(m_dialogue);
 			
@@ -68,41 +62,12 @@ package states
 		override public function update():void 
 		{
 			super.update();
-			
-			updateAnim();
 		}
 		
 		private function onUnFade():void
 		{
 			// Begin game
-			m_currentAnim = eANIM_NPC_ENTER;
-			m_animTimer = 4.0;
-		}
-		
-		private function updateAnim():void
-		{
-			if (m_currentAnim == eANIM_NPC_ENTER)
-			{
-				if (m_animTimer > 0.0)
-				{
-					// TO DO: Intermediate anim frames (only 1 or 2)
-					
-					m_animTimer -= FlxG.elapsed;
-				}
-				else
-				{
-					m_npc = new FlxSprite;
-					m_npc.loadGraphic(imgNPCreadingheadup);
-					m_npc.x = (FlxG.width - m_npc.width) * 0.5;
-					m_npc.y = FlxG.height - m_npc.height;
-					s_layerScene.add(m_npc);
-					
-					m_currentAnim = eANIM_NONE;
-					m_animTimer = 0.0;
-					
-					m_dialogue.initDialogueNode(DialogueManager.eDIALOGUE_OPENER);
-				}
-			}
+			m_npc.setAnim(NPC.eANIM_NPC_ENTER);
 		}
 	}
 }

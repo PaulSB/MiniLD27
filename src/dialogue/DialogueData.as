@@ -37,7 +37,7 @@ package dialogue
 			return "INVALID STRING";
 		}
 		
-		public function getFullTextByID(id:uint):String
+		public function getPlayerTextByButtonID(id:uint):String
 		{
 			var numEntries:int = m_xmlData.buttons.children().length();
 			
@@ -53,6 +53,42 @@ package dialogue
 			}
 			
 			return "INVALID STRING";
+		}
+		
+		public function getNPCTextByButtonID(id:uint):String
+		{
+			var numEntries:int = m_xmlData.buttons.children().length();
+			
+            var idList:XMLList = m_xmlData.buttons.button.@id;  
+            var bodyList:XMLList =  m_xmlData.buttons.button.responses.response.body;
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == id)
+				{
+					return bodyList[loop];
+				}
+			}
+			
+			return "INVALID STRING";
+		}
+		
+		public function getNextNodeByButtonID(id:uint):uint
+		{
+			var numEntries:int = m_xmlData.buttons.children().length();
+			
+            var idList:XMLList = m_xmlData.buttons.button.@id;  
+            var nodeList:XMLList =  m_xmlData.buttons.button.responses.response.nextnode;
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == id)
+				{
+					return nodeList[loop];
+				}
+			}
+			
+			return 0;
 		}
 	}
 }

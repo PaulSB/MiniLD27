@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dialogue>
+	<nodes>
+		<node id="1" name="OPENER">
+			<buttonid>0</buttonid>
+		</node>
+	</nodes>
 	<buttons>
 		<button id="0" name="HI" text="Hi">
 			<body>Hi</body>
+			<responses>
+				<response>
+					<body>Hi</body>
+					<nextnode>1</nextnode>
+				</response>
+			</responses>
 		</button>
 	</buttons>
 </dialogue>
