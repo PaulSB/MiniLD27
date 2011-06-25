@@ -32,6 +32,7 @@ package dialogue
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
 		private var m_buttonTimer:Number = 0.0;
+		private var m_comfortLevel:uint = 20;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
 		
 		// Graphic objects
 		private var m_optionButtons:FlxGroup;
@@ -104,7 +105,7 @@ package dialogue
 			shutDownDialogue();
 			
 			// TEMP
-			m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you."/*, process*/);//visible = true;
+			m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you.");
 		}
 
 		private function resetButtons():void
@@ -138,7 +139,7 @@ package dialogue
 				
 				m_currentState = eDIALOGUESTATE_NPCSAY;
 				
-				var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked);
+				var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
 				
 				m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, responseText, process);
 			}

@@ -11,10 +11,10 @@
 	</nodes>
 	<buttons>
 		<button id="0" name="HI" text="Hi" time="0">
-			<body>Hi</body>
+			<body>Hi.</body>
 			<responses>
 				<response>
-					<body>Hi</body>
+					<body>Hi.</body>
 					<nextnode>2</nextnode>
 				</response>
 			</responses>
@@ -22,7 +22,11 @@
 		<button id="1" name="MUDKIPZ" text="Mudkipz?" time="5">
 			<body>Do you leik mudkipz?</body>
 			<responses>
-				<response>
+				<response comfort="60">
+					<body>Haha... you're crazy.</body>
+					<nextnode>2</nextnode>
+				</response>
+				<response comfort="0">
 					<body>Sorry?</body>
 					<nextnode>2</nextnode>
 				</response>

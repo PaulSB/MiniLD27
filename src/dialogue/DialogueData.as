@@ -25,7 +25,6 @@ package dialogue
 		{
 			var numEntries:int = m_xmlData.nodes.children().length();
 			
-            //var idList:XMLList = m_xmlData.nodes.node.@id;
             var nodeList:XMLList = m_xmlData.nodes.node;
 			
 			var ret:Array = new Array;
@@ -34,7 +33,6 @@ package dialogue
 				var node:XML = nodeList[loop];
 				if (node.@id == nodeID)
 				{
-					//numEntries = node.length();
 					var buttonList:XMLList =  node.buttonid;
 					for (loop = 0; loop < buttonList.length(); loop++)
 					{
@@ -139,18 +137,28 @@ package dialogue
 			return "INVALID STRING";
 		}
 		
-		public function getNPCTextByButtonID(id:uint):String
+		public function getNPCTextByButtonID(id:uint, comfort:uint):String
 		{
 			var numEntries:int = m_xmlData.buttons.children().length();
 			
-            var idList:XMLList = m_xmlData.buttons.button.@id;  
-            var bodyList:XMLList =  m_xmlData.buttons.button.responses.response.body;
-			
+            var idList:XMLList = m_xmlData.buttons.button.@id;
+
 			for (var loop:int = 0; loop < numEntries; loop++)
 			{
 				if (idList[loop] == id)
 				{
-					return bodyList[loop];
+					var button:XML = m_xmlData.buttons.button[loop];
+					
+					var comfortList:XMLList = button.responses.response.@comfort;
+					var bodyList:XMLList =  button.responses.response.body;
+					
+					for (loop = 0; loop < bodyList.length(); loop++)
+					{
+						if (comfortList[loop] <= comfort)
+							return bodyList[loop];
+					}
+					
+					break;
 				}
 			}
 			
