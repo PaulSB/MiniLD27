@@ -6,7 +6,7 @@
 		</node>
 	</nodes>
 	<buttons>
-		<button id="0" name="HI" text="Hi">
+		<button id="0" name="HI" text="Hi" time="0">
 			<body>Hi</body>
 			<responses>
 				<response>

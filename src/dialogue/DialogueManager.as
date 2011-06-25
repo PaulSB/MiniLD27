@@ -2,6 +2,7 @@ package dialogue
 {
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxSprite;
 	import ui.BubbleButton;
 	import ui.TextPanel;
 	
@@ -24,11 +25,13 @@ package dialogue
 		private const MAX_OPTION_BUTTONS:int = 8;
 		private const BUTTON_X_POS:Number = 180.0;
 		private const BUTTON_Y_POS_START:Number = FlxG.height + 40;
-		private const BUTTON_Y_VELOCITY:Number = -10.0;
+		private const BUTTON_Y_POS_FINISH:Number = 125.0;
+		public static const BUTTON_Y_VELOCITY:Number = -20.0;
 		
 		private var m_currentNode:uint = eDIALOGUE_NONE;
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
+		private var m_buttonTimer:Number = 0.0;
 		
 		// Graphic objects
 		private var m_optionButtons:FlxGroup;
@@ -45,7 +48,7 @@ package dialogue
 			for (loop; loop < MAX_OPTION_BUTTONS; loop++)
 			{
 				var newButton:BubbleButton = new BubbleButton(BUTTON_X_POS, BUTTON_Y_POS_START);
-				newButton.m_minYpos = loop * 80;
+				newButton.m_minYpos = loop * 80 + BUTTON_Y_POS_FINISH;
 				m_optionButtons.add(newButton);
 			}
 			
@@ -73,21 +76,21 @@ package dialogue
 				
 				// Dialogue option
 				var button:BubbleButton = m_optionButtons.members[0];
-				button.label.text = m_dialogueData.getButtonTextByName("HI");
-				button.velocity.y = BUTTON_Y_VELOCITY;
-				// Result callback
-				button.onUp = process;
-				
+				button.setupButton(m_dialogueData.getButtonTextByName("HI"), process,
+									m_dialogueData.getButtonIDByNodeID(m_currentNode), m_dialogueData.getButtonTimeByName("HI"), BUTTON_Y_VELOCITY);
+									
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 			}
+			
+			m_buttonTimer = 0.0;
 		}
-		
+
 		private function resetButtons():void
 		{
 			for each (var button:BubbleButton in m_optionButtons.members)
 			{
 				button.setPos(BUTTON_X_POS, BUTTON_Y_POS_START);
-				button.velocity.y = 0;
+				button.active = false;
 			}
 		}
 		

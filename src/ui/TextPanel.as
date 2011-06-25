@@ -17,13 +17,18 @@ package ui
 		
 		private const TEXT_INDENT_X:Number = 25.0;
 		private const TEXT_INDENT_Y:Number = 12.5;
+		private const TEXT_TYPE_LETTER_INTERVAL:Number = 0.1;
 		
+		private var m_text:String;
+		private var m_cursorPos:int = 0;
 		private var m_label:FlxText;
 		private var m_backing:FlxSprite;
 		private var m_prompt:FlxSprite = null;
 		
-		private var m_promptPressed:Boolean;
+		private var m_promptPressed:Boolean = false;
 		private var m_promptCallback:Function;
+		private var m_readyToProceed:Boolean = false;
+		private var m_readoutTimer:Number = 0;
 		
 		public function TextPanel(showPrompt:Boolean = false) 
 		{
@@ -50,7 +55,29 @@ package ui
 		
 		override public function update():void 
 		{
-			if (m_prompt)
+			if (!m_readyToProceed)
+			{
+				if (m_text)
+				{
+					m_readoutTimer -= FlxG.elapsed;
+					
+					if (m_readoutTimer <= 0.0)
+					{
+						if (m_cursorPos < m_text.length)
+						{
+							m_label.text = m_label.text + m_text.charAt(m_cursorPos++);
+							m_readoutTimer = TEXT_TYPE_LETTER_INTERVAL;
+						}
+						else
+						{
+							m_readyToProceed = true;
+							if (m_prompt)
+								m_prompt.visible = true;
+						}
+					}
+				}
+			}
+			else if (m_prompt)
 			{
 				// Update highlighting
 				if (m_prompt.alpha < 1.0)
@@ -87,10 +114,17 @@ package ui
 		public function SetupPanel(posX:Number, posY:Number, text:String, clickCB:Function = null):void
 		{
 			SetPosition(posX, posY);
-			m_label.text = text;
+			m_label.text = "";
+			m_text = text;
 			visible = true;
+			
 			m_promptPressed = false;
 			m_promptCallback = clickCB;
+			m_readyToProceed = false;
+			m_readoutTimer = TEXT_TYPE_LETTER_INTERVAL;
+			m_cursorPos = 0;
+			if (m_prompt)
+				m_prompt.visible = false;
 		}
 		
 		public function SetPosition(posX:Number, posY:Number):void

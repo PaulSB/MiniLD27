@@ -16,28 +16,41 @@ package ui
 		
 		public static var m_lastButtonIDClicked:uint;
 		
-		public var m_minYpos:Number = 0.0;
+		public var m_minYpos:Number = 0;
+		public var m_buttonSpeed:Number = 0;
 		public var m_buttonID:uint = 0;
+		public var m_thinkingTime:Number = 0;
 		
-		public function BubbleButton(centreX:Number, centreY:Number, caption:String = null, OnClick:Function = null, buttonID:uint = 0) 
+		private var m_buttonTimer:Number = 0;
+		
+		public function BubbleButton(centreX:Number, centreY:Number, caption:String = null, OnClick:Function = null) 
 		{
 			var leftX:Number = centreX - 160;
 			var topY:Number = centreY - 40;
 			super(leftX, topY, caption, OnClick);
-			
-			m_buttonID = buttonID;
 			
 			label = new FlxText(0,0,320,caption);
 			label.setFormat("Bertham",32,0x000000,"center");
 			labelOffset = new FlxPoint(0,24);
 
 			loadGraphic(imgBubbleButton, true, false, 320, 80);
+			blend = "normal";
+			antialiasing = true;
+			label.blend = "normal";
+			label.antialiasing = true;
 			
 			allowCollisions = NONE;
 		}
 		
 		override public function update():void 
-		{
+		{	
+			m_buttonTimer += FlxG.elapsed;
+			
+			if (y > m_minYpos && velocity.y == 0 && m_buttonTimer > m_thinkingTime)
+			{
+				velocity.y = m_buttonSpeed;
+			}
+			
 			if (velocity.x != 0.0)
 			{
 				x += velocity.x * FlxG.elapsed;
@@ -64,6 +77,21 @@ package ui
 			m_lastButtonIDClicked = m_buttonID;
 			
 			super.onMouseUp(event);
+		}
+		
+		public function setupButton(caption:String = null, OnClick:Function = null,	buttonID:uint = 0, time:Number = 0.0, speed:Number = 0.0):void
+		{
+			label.text = caption;
+			
+			onUp = OnClick;
+			
+			m_buttonID = buttonID;
+			m_thinkingTime = time;
+			m_buttonTimer = 0;
+			m_buttonSpeed = speed;
+			
+			velocity.y = 0;
+			active = true;
 		}
 		
 		public function setPos(centreX:Number, centreY:Number):void
