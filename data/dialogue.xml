@@ -16,7 +16,7 @@
 				</response>
 			</responses>
 		</button>
-		<button id="1" name="MUDKIPS" text="Mudkips?" time="3">
+		<button id="1" name="MUDKIPZ" text="Mudkipz?" time="5">
 			<body>Do you leik mudkipz?</body>
 			<responses>
 				<response>

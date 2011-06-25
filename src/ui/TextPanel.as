@@ -17,7 +17,7 @@ package ui
 		
 		private const TEXT_INDENT_X:Number = 25.0;
 		private const TEXT_INDENT_Y:Number = 12.5;
-		private const TEXT_TYPE_LETTER_INTERVAL:Number = 0.1;
+		private const TEXT_TYPE_LETTER_INTERVAL:Number = 0.05;
 		
 		private var m_text:String;
 		private var m_cursorPos:int = 0;
@@ -73,6 +73,8 @@ package ui
 							m_readyToProceed = true;
 							if (m_prompt)
 								m_prompt.visible = true;
+							else
+								m_promptCallback();		// no prompt, then proceed straight to result
 						}
 					}
 				}
@@ -104,6 +106,8 @@ package ui
 						&& (FlxG.mouse.y > m_prompt.y && FlxG.mouse.y < m_prompt.y + m_prompt.height))
 					{
 						m_promptCallback();
+						
+						m_prompt.visible = false;
 					}
 				}
 			}
@@ -117,6 +121,7 @@ package ui
 			m_label.text = "";
 			m_text = text;
 			visible = true;
+			setFaded(false);
 			
 			m_promptPressed = false;
 			m_promptCallback = clickCB;
@@ -144,6 +149,14 @@ package ui
 		{
 			var ret:FlxPoint = new FlxPoint(m_backing.width, m_backing.height);
 			return ret;
+		}
+		
+		public function setFaded(faded:Boolean):void
+		{
+			var alphaAmount:Number = faded ? 0.5 : 1;
+			
+			m_backing.alpha = alphaAmount;
+			m_label.alpha = alphaAmount;
 		}
 	}
 }

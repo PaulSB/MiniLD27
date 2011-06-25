@@ -42,6 +42,14 @@ package dialogue
 		{
 			super();
 			
+			m_playerTextbox = new TextPanel(true);
+			m_playerTextbox.visible = false;
+			add(m_playerTextbox);
+			
+			m_npcTextbox = new TextPanel();
+			m_npcTextbox.visible = false;
+			add(m_npcTextbox);
+			
 			m_optionButtons = new FlxGroup;
 			
 			var loop:int = 0;
@@ -53,14 +61,6 @@ package dialogue
 			}
 			
 			add(m_optionButtons);
-			
-			m_playerTextbox = new TextPanel(true);
-			m_playerTextbox.visible = false;
-			add(m_playerTextbox);
-			
-			m_npcTextbox = new TextPanel();
-			m_npcTextbox.visible = false;
-			add(m_npcTextbox);
 			
 			// Init xml data
 			m_dialogueData = new DialogueData;
@@ -106,7 +106,7 @@ package dialogue
 			{
 				if (m_currentState == eDIALOGUESTATE_BUTTONS)
 				{
-					m_npcTextbox.visible = false;
+					m_npcTextbox.setFaded(true);
 					
 					m_currentState = eDIALOGUESTATE_PLAYERSAY;
 					
@@ -119,13 +119,17 @@ package dialogue
 				}
 				else if (m_currentState == eDIALOGUESTATE_PLAYERSAY)
 				{
-					m_playerTextbox.visible = false;
+					m_playerTextbox.setFaded(true);
 					
 					m_currentState = eDIALOGUESTATE_NPCSAY;
 					
 					var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked);
 					
-					m_npcTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, 0, responseText);
+					m_npcTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, 0, responseText, process);
+				}
+				else if (m_currentState == eDIALOGUESTATE_NPCSAY)
+				{
+					m_currentState = eDIALOGUESTATE_BUTTONS;
 					
 					initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked));
 				}
