@@ -93,6 +93,19 @@ package dialogue
 			m_playerTextbox.visible = false;
 			m_npcTextbox.visible = false;
 		}
+		
+		public function isDialogueActive():Boolean
+		{
+			return (m_npcTextbox.visible);
+		}
+		
+		public function forceGoToEndDialogue():void
+		{
+			shutDownDialogue();
+			
+			// TEMP
+			m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you."/*, process*/);//visible = true;
+		}
 
 		private function resetButtons():void
 		{
@@ -127,7 +140,7 @@ package dialogue
 				
 				var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked);
 				
-				m_npcTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, 0, responseText, process);
+				m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, responseText, process);
 			}
 			else if (m_currentState == eDIALOGUESTATE_NPCSAY)
 			{

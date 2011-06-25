@@ -3,7 +3,6 @@ package game
 	import dialogue.DialogueManager;
 	import org.flixel.FlxG;
 	import org.flixel.FlxSprite;
-	import states.PlayState;
 	
 	/**
 	 * MiniLD 27 - "All Talk"

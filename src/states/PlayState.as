@@ -14,18 +14,19 @@ package states
 	 */
 	public class PlayState extends FlxState
 	{
-		private const GAME_DURATION:Number = 30;		// Seconds
+		private const GAME_DURATION:Number = 60;		// Seconds
 		private const END_FADEOUT_TIME:Number = 2.5;	// Seconds
 		
 		// Time-based game states
-		private var eGAMESTATE_NONE:uint = 0;
-		private var eGAMESTATE_INTRO:uint = 1;
-		private var eGAMESTATE_JOURNEYSTART:uint = 2;
-		private var eGAMESTATE_JOURNEYEND:uint = 3;
-		private var eGAMESTATE_OUTTRO:uint = 4;
-		private var eGAMESTATE_FADEOUT:uint = 5;
+		static public var eGAMESTATE_NONE:uint = 0;
+		static public var eGAMESTATE_INTRO:uint = 1;
+		static public var eGAMESTATE_JOURNEYSTART:uint = 2;
+		static public var eGAMESTATE_JOURNEYNEAREND:uint = 3;
+		static public var eGAMESTATE_JOURNEYEND:uint = 4;
+		static public var eGAMESTATE_OUTTRO:uint = 5;
+		static public var eGAMESTATE_FADEOUT:uint = 6;
 		
-		private var m_currentGameState:uint = eGAMESTATE_NONE;
+		static public var m_currentGameState:uint = eGAMESTATE_NONE;
 		private var m_clockTime:Number = 0;	// Game clock
 		
 		// Graphic objects
@@ -83,29 +84,36 @@ package states
 			{
 				if (m_clockTime > m_npc.INTRO_ANIM_TIME)
 				{
-					m_currentGameState++;
+					m_currentGameState = eGAMESTATE_JOURNEYSTART;
 					
-					// eGAMESTATE_JOURNEYSTART:
 					m_dialogue.initDialogueNode(DialogueManager.eDIALOGUE_OPENER);
 				}
 			}
 			if (m_currentGameState == eGAMESTATE_JOURNEYSTART)
 			{
-				if (m_clockTime > 20)
+				if (m_clockTime > GAME_DURATION - 10)
 				{
-					m_currentGameState++;
-					
-					// eGAMESTATE_JOURNEYEND:
-					// TO DO: if conversation is "active", jump to her "goodbye" dialogue node here, rather than just fucking off ***
+					// If conversation is "active", jump to her "goodbye" dialogue node here, rather than just fucking off
+					if (m_dialogue.isDialogueActive())
+					{
+						m_currentGameState = eGAMESTATE_JOURNEYNEAREND;
+						
+						m_dialogue.forceGoToEndDialogue();
+					}
+					else
+					{
+						m_currentGameState = eGAMESTATE_JOURNEYEND;
+						
+						m_dialogue.forceGoToEndDialogue();
+					}
 				}
 			}
-			else if (m_currentGameState == eGAMESTATE_JOURNEYEND)
+			else if (m_currentGameState == eGAMESTATE_JOURNEYNEAREND || m_currentGameState == eGAMESTATE_JOURNEYEND)
 			{
 				if (m_clockTime > GAME_DURATION - m_npc.OUTTRO_ANIM_TIME)
 				{
-					m_currentGameState++;
+					m_currentGameState = eGAMESTATE_OUTTRO;
 					
-					// eGAMESTATE_OUTTRO:
 					m_dialogue.shutDownDialogue();
 					m_npc.setAnim(NPC.eANIM_NPC_EXIT);
 				}
@@ -114,9 +122,8 @@ package states
 			{
 				if (m_clockTime > GAME_DURATION)
 				{
-					m_currentGameState++;
+					m_currentGameState = eGAMESTATE_FADEOUT;
 					
-					// eGAMESTATE_FADEOUT:
 					FlxG.fade(0xffffffff, END_FADEOUT_TIME, onFadeOut);
 				}
 			}

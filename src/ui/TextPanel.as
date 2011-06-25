@@ -73,7 +73,7 @@ package ui
 							m_readyToProceed = true;
 							if (m_prompt)
 								m_prompt.visible = true;
-							else
+							else if (m_promptCallback != null)
 								m_promptCallback();		// no prompt, then proceed straight to result
 						}
 					}
