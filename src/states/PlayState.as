@@ -6,6 +6,7 @@ package states
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
+	import ui.BubbleButton;
 	
 	/**
 	 * MiniLD 27 - "All Talk"
@@ -13,6 +14,20 @@ package states
 	 */
 	public class PlayState extends FlxState
 	{
+		private const GAME_DURATION:Number = 30;		// Seconds
+		private const END_FADEOUT_TIME:Number = 2.5;	// Seconds
+		
+		// Time-based game states
+		private var eGAMESTATE_NONE:uint = 0;
+		private var eGAMESTATE_INTRO:uint = 1;
+		private var eGAMESTATE_JOURNEYSTART:uint = 2;
+		private var eGAMESTATE_JOURNEYEND:uint = 3;
+		private var eGAMESTATE_OUTTRO:uint = 4;
+		private var eGAMESTATE_FADEOUT:uint = 5;
+		
+		private var m_currentGameState:uint = eGAMESTATE_NONE;
+		private var m_clockTime:Number = 0;	// Game clock
+		
 		// Graphic objects
 		private var m_npc:NPC;							// The character you are talking to
 		public static var m_dialogue:DialogueManager;	// The dialogue manager object, containing all text and conversation options
@@ -61,13 +76,67 @@ package states
 		
 		override public function update():void 
 		{
+			if (m_currentGameState > eGAMESTATE_NONE)
+				m_clockTime += FlxG.elapsed;
+			
+			if (m_currentGameState == eGAMESTATE_INTRO)
+			{
+				if (m_clockTime > m_npc.INTRO_ANIM_TIME)
+				{
+					m_currentGameState++;
+					
+					// eGAMESTATE_JOURNEYSTART:
+					m_dialogue.initDialogueNode(DialogueManager.eDIALOGUE_OPENER);
+				}
+			}
+			if (m_currentGameState == eGAMESTATE_JOURNEYSTART)
+			{
+				if (m_clockTime > 20)
+				{
+					m_currentGameState++;
+					
+					// eGAMESTATE_JOURNEYEND:
+					// TO DO: if conversation is "active", jump to her "goodbye" dialogue node here, rather than just fucking off ***
+				}
+			}
+			else if (m_currentGameState == eGAMESTATE_JOURNEYEND)
+			{
+				if (m_clockTime > GAME_DURATION - m_npc.OUTTRO_ANIM_TIME)
+				{
+					m_currentGameState++;
+					
+					// eGAMESTATE_OUTTRO:
+					m_dialogue.shutDownDialogue();
+					m_npc.setAnim(NPC.eANIM_NPC_EXIT);
+				}
+			}
+			else if (m_currentGameState == eGAMESTATE_OUTTRO)
+			{
+				if (m_clockTime > GAME_DURATION)
+				{
+					m_currentGameState++;
+					
+					// eGAMESTATE_FADEOUT:
+					FlxG.fade(0xffffffff, END_FADEOUT_TIME, onFadeOut);
+				}
+			}
+			else if (m_currentGameState == eGAMESTATE_FADEOUT)
+			{
+				m_currentGameState = eGAMESTATE_NONE;
+			}
+			
 			super.update();
 		}
 		
 		private function onUnFade():void
 		{
 			// Begin game
+			m_currentGameState = eGAMESTATE_INTRO;
 			m_npc.setAnim(NPC.eANIM_NPC_ENTER);
+		}
+		private function onFadeOut():void
+		{
+			FlxG.switchState( new MenuState() );
 		}
 	}
 }

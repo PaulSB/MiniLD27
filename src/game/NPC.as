@@ -17,6 +17,10 @@ package game
 		// Pseudo-enums
 		static public const eANIM_NONE:uint = 0;
 		static public const eANIM_NPC_ENTER:uint = 1;
+		static public const eANIM_NPC_EXIT:uint = 2;
+		
+		public const INTRO_ANIM_TIME:Number = 4.0;
+		public const OUTTRO_ANIM_TIME:Number = 4.0;
 		
 		// Member vars
 		private var m_currentAnim:uint = eANIM_NONE;
@@ -40,22 +44,23 @@ package game
 		{
 			m_currentAnim = state;
 			
-			if (m_currentAnim == eANIM_NPC_ENTER)	{ m_animTimer = 5.0; }
-			else									{ m_animTimer = 0.0; }
+			if (m_currentAnim == eANIM_NPC_ENTER)		{ m_animTimer = INTRO_ANIM_TIME; }
+			else if (m_currentAnim == eANIM_NPC_EXIT)	{ m_animTimer = OUTTRO_ANIM_TIME; }
+			else										{ m_animTimer = 0.0; }
 			
 			m_animParam = 0;
 		}
 		
 		private function updateAnim():void
 		{
-			if (m_currentAnim == eANIM_NPC_ENTER)
+			if (m_currentAnim == eANIM_NPC_ENTER || m_currentAnim == eANIM_NPC_EXIT)	// TO DO: Exit anim
 			{
 				if (m_animTimer > 0.0)
 				{
 					// TO DO: Intermediate anim frames (only 1 or 2)
 					if (m_animParam == 0)
 					{
-						if (m_animTimer < 4.0)
+						if (m_animTimer < INTRO_ANIM_TIME)
 						{
 							// Transition
 							visible = true;
@@ -71,45 +76,47 @@ package game
 					else if (m_animParam == 1)
 					{
 						var deltaAlpha:Number;
-						if (m_animTimer < 3.00)
+						if (m_animTimer < (INTRO_ANIM_TIME - 1.0))
 						{
 							// Transition
 							alpha = 0.0;
 							m_animParam++;
 						}
-						else if (m_animTimer < 3.25)
+						else if (m_animTimer < (INTRO_ANIM_TIME - 0.75))
 						{
 							// Fade out
-							deltaAlpha = ((m_animTimer - 3.0) * 4.0);
+							deltaAlpha = ((m_animTimer - (INTRO_ANIM_TIME - 1.0)) * 4.0);
 							alpha = deltaAlpha;
 						}
-						else if (m_animTimer < 3.75)
+						else if (m_animTimer < (INTRO_ANIM_TIME - 0.25))
 						{
 							// Hold
-							if (alpha < 1.0)	alpha = 1.0;
+							if (alpha < 1.0)
+								alpha = 1.0;
 						}
-						else if (m_animTimer < 4.0)
+						else if (m_animTimer < INTRO_ANIM_TIME)
 						{
 							// Fade in
-							deltaAlpha = 1.0 - ((m_animTimer - 3.75) * 4.0);
+							deltaAlpha = 1.0 - ((m_animTimer - (INTRO_ANIM_TIME - 0.25)) * 4.0);
 							alpha = deltaAlpha;
 						}
 					}
 					
 					m_animTimer -= FlxG.elapsed;
 				}
-				else
+				else 
 				{
-					// Intro anim over, load current idle graphic
-					loadGraphic(imgNPCreadingheadup);
-					x = (FlxG.width - width) * 0.5;
-					y = FlxG.height - height + 10;
-					alpha = 1;
+					if (m_currentAnim != eANIM_NPC_EXIT)	// TEMP
+					{
+						// Intro anim over, load current idle graphic
+						loadGraphic(imgNPCreadingheadup);
+						x = (FlxG.width - width) * 0.5;
+						y = FlxG.height - height + 10;
+						alpha = 1;
+					}
 					
 					m_currentAnim = eANIM_NONE;
 					m_animTimer = 0.0;
-					
-					PlayState.m_dialogue.initDialogueNode(DialogueManager.eDIALOGUE_OPENER);
 				}
 			}
 		}

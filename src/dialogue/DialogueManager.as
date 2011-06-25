@@ -86,6 +86,13 @@ package dialogue
 			
 			m_buttonTimer = 0.0;
 		}
+		
+		public function shutDownDialogue():void
+		{
+			resetButtons();
+			m_playerTextbox.visible = false;
+			m_npcTextbox.visible = false;
+		}
 
 		private function resetButtons():void
 		{
