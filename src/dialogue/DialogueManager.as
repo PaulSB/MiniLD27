@@ -15,13 +15,13 @@ package dialogue
 		// Dialogue node IDs	***THESE ARE HARD-CODED INTO XML AND CAN NOT CHANGE!!!***
 		public static const eDIALOGUE_NONE:uint = 0;
 		public static const eDIALOGUE_OPENER:uint = 1;
+		public static const eDIALOGUE_QHUB1:uint = 2;	// "QHUB" = Question hub, major branching point where new conv. threads are available
 		
 		// State of dialogue at given node
 		private const eDIALOGUESTATE_BUTTONS:uint = 0;
 		private const eDIALOGUESTATE_PLAYERSAY:uint = 1;
 		private const eDIALOGUESTATE_NPCSAY:uint = 2;
 		
-		// Constants
 		private const MAX_OPTION_BUTTONS:int = 8;
 		private const BUTTON_X_POS:Number = 180.0;
 		private const BUTTON_Y_POS_START:Number = FlxG.height + 40;
@@ -70,22 +70,19 @@ package dialogue
 		{
 			m_currentNode = node;
 			
-			if (m_currentNode == eDIALOGUE_OPENER)
+			resetButtons();
+			
+			// Dialogue option
+			var buttonIDs:Array = m_dialogueData.getButtonIDsByNodeID(m_currentNode);
+			for (var buttonLoop:int = 0; buttonLoop < buttonIDs.length && buttonLoop < MAX_OPTION_BUTTONS; buttonLoop++)
 			{
-				resetButtons();
-				
-				// Dialogue option
-				var buttonIDs:Array = m_dialogueData.getButtonIDsByNodeID(m_currentNode);
-				for (var buttonLoop:int = 0; buttonLoop < buttonIDs.length && buttonLoop < MAX_OPTION_BUTTONS; buttonLoop++)
-				{
-					var button:BubbleButton = m_optionButtons.members[buttonLoop];
-					var buttonID:uint = buttonIDs[buttonLoop];
-					button.setupButton(m_dialogueData.getButtonTextByID(buttonID), process,
-										buttonID, m_dialogueData.getButtonTimeByID(buttonID), BUTTON_Y_VELOCITY);
-				}
-				
-				m_currentState = eDIALOGUESTATE_BUTTONS;
+				var button:BubbleButton = m_optionButtons.members[buttonLoop];
+				var buttonID:uint = buttonIDs[buttonLoop];
+				button.setupButton(m_dialogueData.getButtonTextByID(buttonID), process,
+									buttonID, m_dialogueData.getButtonTimeByID(buttonID), BUTTON_Y_VELOCITY);
 			}
+			
+			m_currentState = eDIALOGUESTATE_BUTTONS;
 			
 			m_buttonTimer = 0.0;
 		}
@@ -102,37 +99,34 @@ package dialogue
 		
 		private function process():void
 		{
-			if (m_currentNode == eDIALOGUE_OPENER)
+			if (m_currentState == eDIALOGUESTATE_BUTTONS)
 			{
-				if (m_currentState == eDIALOGUESTATE_BUTTONS)
-				{
-					m_npcTextbox.setFaded(true);
-					
-					m_currentState = eDIALOGUESTATE_PLAYERSAY;
-					
-					resetButtons();
-					
-					var bodyText:String = m_dialogueData.getPlayerTextByButtonID(BubbleButton.m_lastButtonIDClicked);
-					
-					m_playerTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, FlxG.height - m_playerTextbox.GetSize().y +0,
-												bodyText, process);
-				}
-				else if (m_currentState == eDIALOGUESTATE_PLAYERSAY)
-				{
-					m_playerTextbox.setFaded(true);
-					
-					m_currentState = eDIALOGUESTATE_NPCSAY;
-					
-					var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked);
-					
-					m_npcTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, 0, responseText, process);
-				}
-				else if (m_currentState == eDIALOGUESTATE_NPCSAY)
-				{
-					m_currentState = eDIALOGUESTATE_BUTTONS;
-					
-					initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked));
-				}
+				m_npcTextbox.setFaded(true);
+				
+				m_currentState = eDIALOGUESTATE_PLAYERSAY;
+				
+				resetButtons();
+				
+				var bodyText:String = m_dialogueData.getPlayerTextByButtonID(BubbleButton.m_lastButtonIDClicked);
+				
+				m_playerTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, FlxG.height - m_playerTextbox.GetSize().y +0,
+											bodyText, process);
+			}
+			else if (m_currentState == eDIALOGUESTATE_PLAYERSAY)
+			{
+				m_playerTextbox.setFaded(true);
+				
+				m_currentState = eDIALOGUESTATE_NPCSAY;
+				
+				var responseText:String = m_dialogueData.getNPCTextByButtonID(BubbleButton.m_lastButtonIDClicked);
+				
+				m_npcTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, 0, responseText, process);
+			}
+			else if (m_currentState == eDIALOGUESTATE_NPCSAY)
+			{
+				m_currentState = eDIALOGUESTATE_BUTTONS;
+				
+				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked));
 			}
 		}
 	}

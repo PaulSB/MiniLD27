@@ -5,6 +5,9 @@
 			<buttonid>0</buttonid>
 			<buttonid>1</buttonid>
 		</node>
+		<node id="2" name="QHUB1">
+			<buttonid>1</buttonid>
+		</node>
 	</nodes>
 	<buttons>
 		<button id="0" name="HI" text="Hi" time="0">
@@ -12,7 +15,7 @@
 			<responses>
 				<response>
 					<body>Hi</body>
-					<nextnode>1</nextnode>
+					<nextnode>2</nextnode>
 				</response>
 			</responses>
 		</button>
@@ -21,7 +24,7 @@
 			<responses>
 				<response>
 					<body>Sorry?</body>
-					<nextnode>1</nextnode>
+					<nextnode>2</nextnode>
 				</response>
 			</responses>
 		</button>
