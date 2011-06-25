@@ -3,6 +3,7 @@
 	<nodes>
 		<node id="1" name="OPENER">
 			<buttonid>0</buttonid>
+			<buttonid>1</buttonid>
 		</node>
 	</nodes>
 	<buttons>
@@ -11,6 +12,15 @@
 			<responses>
 				<response>
 					<body>Hi</body>
+					<nextnode>1</nextnode>
+				</response>
+			</responses>
+		</button>
+		<button id="1" name="MUDKIPS" text="Mudkips?" time="3">
+			<body>Do you leik mudkipz?</body>
+			<responses>
+				<response>
+					<body>Sorry?</body>
 					<nextnode>1</nextnode>
 				</response>
 			</responses>

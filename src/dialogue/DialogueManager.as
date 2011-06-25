@@ -26,7 +26,7 @@ package dialogue
 		private const BUTTON_X_POS:Number = 180.0;
 		private const BUTTON_Y_POS_START:Number = FlxG.height + 40;
 		private const BUTTON_Y_POS_FINISH:Number = 125.0;
-		public static const BUTTON_Y_VELOCITY:Number = -20.0;
+		public static const BUTTON_Y_VELOCITY:Number = -30.0;
 		
 		private var m_currentNode:uint = eDIALOGUE_NONE;
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
@@ -75,10 +75,15 @@ package dialogue
 				resetButtons();
 				
 				// Dialogue option
-				var button:BubbleButton = m_optionButtons.members[0];
-				button.setupButton(m_dialogueData.getButtonTextByName("HI"), process,
-									m_dialogueData.getButtonIDByNodeID(m_currentNode), m_dialogueData.getButtonTimeByName("HI"), BUTTON_Y_VELOCITY);
-									
+				var buttonIDs:Array = m_dialogueData.getButtonIDsByNodeID(m_currentNode);
+				for (var buttonLoop:int = 0; buttonLoop < buttonIDs.length && buttonLoop < MAX_OPTION_BUTTONS; buttonLoop++)
+				{
+					var button:BubbleButton = m_optionButtons.members[buttonLoop];
+					var buttonID:uint = buttonIDs[buttonLoop];
+					button.setupButton(m_dialogueData.getButtonTextByID(buttonID), process,
+										buttonID, m_dialogueData.getButtonTimeByID(buttonID), BUTTON_Y_VELOCITY);
+				}
+				
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 			}
 			
@@ -90,6 +95,7 @@ package dialogue
 			for each (var button:BubbleButton in m_optionButtons.members)
 			{
 				button.setPos(BUTTON_X_POS, BUTTON_Y_POS_START);
+				button.label.y = BUTTON_Y_POS_START;
 				button.active = false;
 			}
 		}

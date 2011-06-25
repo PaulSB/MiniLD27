@@ -73,10 +73,13 @@ package ui
 		
 		override protected function onMouseUp(event:MouseEvent):void 
 		{
-			// Store off button ID so we know what was just pressed
-			m_lastButtonIDClicked = m_buttonID;
-			
-			super.onMouseUp(event);
+			if (status == PRESSED)
+			{
+				// Store off button ID so we know what was just pressed
+				m_lastButtonIDClicked = m_buttonID;
+				
+				super.onMouseUp(event);
+			}
 		}
 		
 		public function setupButton(caption:String = null, OnClick:Function = null,	buttonID:uint = 0, time:Number = 0.0, speed:Number = 0.0):void

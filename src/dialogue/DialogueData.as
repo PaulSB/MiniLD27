@@ -21,22 +21,32 @@ package dialogue
 		
 		// Node stuff
 		
-		public function getButtonIDByNodeID(nodeID:uint):uint
+		public function getButtonIDsByNodeID(nodeID:uint):Array
 		{
 			var numEntries:int = m_xmlData.nodes.children().length();
 			
-            var idList:XMLList = m_xmlData.nodes.node.@id;
-            var buttonList:XMLList =  m_xmlData.nodes.node.buttonid;
+            //var idList:XMLList = m_xmlData.nodes.node.@id;
+            var nodeList:XMLList = m_xmlData.nodes.node;
 			
+			var ret:Array = new Array;
 			for (var loop:int = 0; loop < numEntries; loop++)
 			{
-				if (idList[loop] == nodeID)
+				var node:XML = nodeList[loop];
+				if (node.@id == nodeID)
 				{
-					return buttonList[loop];	// TODO: be able to get all buttons, not just one
+					//numEntries = node.length();
+					var buttonList:XMLList =  node.buttonid;
+					for (loop = 0; loop < buttonList.length(); loop++)
+					{
+						var id:uint = buttonList[loop];
+						ret.push(id);
+					}
+
+					break;
 				}
 			}
 			
-			return 0;
+			return ret;
 		}
 		
 		// Button stuff
@@ -58,6 +68,23 @@ package dialogue
 			
 			return "INVALID STRING";
 		}
+		public function getButtonTextByID(ID:uint):String
+		{
+			var numEntries:int = m_xmlData.buttons.children().length();
+			
+            var idList:XMLList = m_xmlData.buttons.button.@id;  
+            var textList:XMLList =  m_xmlData.buttons.button.@text;
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == ID)
+				{
+					return textList[loop];
+				}
+			}
+			
+			return "INVALID STRING";
+		}
 		
 		public function getButtonTimeByName(stringID:String):uint
 		{
@@ -69,6 +96,23 @@ package dialogue
 			for (var loop:int = 0; loop < numEntries; loop++)
 			{
 				if (nameList[loop] == stringID)
+				{
+					return timeList[loop];
+				}
+			}
+			
+			return 0;
+		}
+		public function getButtonTimeByID(ID:uint):uint
+		{
+			var numEntries:int = m_xmlData.buttons.children().length();
+			
+            var idList:XMLList = m_xmlData.buttons.button.@id;
+            var timeList:XMLList =  m_xmlData.buttons.button.@time;
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == ID)
 				{
 					return timeList[loop];
 				}
