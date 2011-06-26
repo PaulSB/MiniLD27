@@ -16,8 +16,6 @@ package dialogue
 		// Dialogue node IDs	***THESE ARE HARD-CODED INTO XML AND CAN NOT CHANGE!!!***
 		public static const eDIALOGUE_NONE:uint = 0;
 		public static const eDIALOGUE_OPENER:uint = 1;
-		//public static const eDIALOGUE_QHUB1:uint = 2;	// "QHUB" = Question hub, major branching point where new conv. threads are available
-		//public static const eDIALOGUE_NAMECOMMENT:uint = 3;
 		
 		// State of dialogue at given node
 		private const eDIALOGUESTATE_BUTTONS:uint = 0;
@@ -34,7 +32,7 @@ package dialogue
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
 		private var m_buttonTimer:Number = 0.0;
-		private var m_comfortLevel:uint = 18;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
+		private static var m_comfortLevel:uint = 19;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
 		private var m_buttonsUsed:Array;
 		
 		// Graphic objects
@@ -123,6 +121,15 @@ package dialogue
 			// TEMP
 			m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you.");
 		}
+		
+		static public function getCurrentComfortState():int
+		{
+			if (m_comfortLevel > 80)		return 4;
+			else if (m_comfortLevel > 60)	return 3;
+			else if (m_comfortLevel > 40)	return 2;
+			else if (m_comfortLevel > 20)	return 1;
+			else							return 0;
+		}
 
 		private function resetButtons():void
 		{
@@ -162,7 +169,7 @@ package dialogue
 				m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, responseText, process);
 			}
 			else if (m_currentState == eDIALOGUESTATE_NPCSAY)
-			{				
+			{
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 				
 				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel));
@@ -174,6 +181,7 @@ package dialogue
 					PlayState.m_achievements.awardAchievement(achievementID);
 				}
 				
+				// Adjust comfort level
 				m_comfortLevel += m_dialogueData.getComfortBonusByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
 			}
 		}
