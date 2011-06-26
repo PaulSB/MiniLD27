@@ -32,7 +32,7 @@ package dialogue
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
 		private var m_buttonTimer:Number = 0.0;
-		private static var m_comfortLevel:uint = 19;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
+		private static var m_comfortLevel:int;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
 		private var m_buttonsUsed:Array;
 		
 		// Graphic objects
@@ -72,6 +72,8 @@ package dialogue
 			{
 				m_buttonsUsed[buttonLoop] = false;
 			}
+			
+			m_comfortLevel = 19;
 		}
 		
 		public function initDialogueNode(node:uint):void
@@ -166,7 +168,7 @@ package dialogue
 			}
 			else 
 			{
-				if (m_comfortLevel == 0)
+				if (m_comfortLevel <= 0)
 					PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_HATE);
 					
 				return 0;

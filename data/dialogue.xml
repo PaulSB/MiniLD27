@@ -19,9 +19,9 @@
 			<buttonid>9</buttonid>			<!--  6 exit-->
 		</node>
 		<node id="5" name="JOURNEY">
+			<buttonid>13</buttonid>	<!--  8 -->
 			<buttonid>8</buttonid>	<!--  6 -->
 			<buttonid>10</buttonid>	<!--  7 -->
-			<buttonid>13</buttonid>	<!--  8 -->
 		</node>
 		<node id="6" name="STUDYQ">
 			<buttonid>16</buttonid>	<!--  9 H *5-->
@@ -32,8 +32,8 @@
 			<buttonid>11</buttonid>	<!--  6 *2-->
 		</node>
 		<node id="8" name="LITTLETIME">
-			<buttonid>14</buttonid>	<!--  6 -->
 			<buttonid>15</buttonid>	<!--  6 -->
+			<buttonid>14</buttonid>	<!--  6 -->
 		</node>
 		<node id="9" name="QHUBSTUDIES">
 			<buttonid>18</buttonid>			<!--  9 H-->
@@ -107,7 +107,7 @@
 			<body>Cool. Is that an English name?</body>
 			<responses>
 				<response comfort="0">
-					<body>I guess it could be but my parents are Russian. With a 'K-S', not an 'X'.</body>
+					<body>I guess it could be but my parents are Russian. With a 'K-S', not a 'X'.</body>
 					<comfortbonus>6</comfortbonus>
 					<nextnode>4</nextnode>
 					<achievement>0</achievement>
@@ -273,7 +273,7 @@
 			<responses>
 				<response comfort="40">
 					<body>What? Yeah okay, but I'll win.</body>
-					<comfortbonus>6</comfortbonus>
+					<comfortbonus>10</comfortbonus>
 					<nextnode>0</nextnode>
 					<achievement>9</achievement>
 				</response>
