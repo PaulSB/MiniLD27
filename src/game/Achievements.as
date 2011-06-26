@@ -3,6 +3,7 @@ package game
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxText;
 	
@@ -13,6 +14,7 @@ package game
 	public class Achievements extends FlxGroup
 	{
 		[Embed(source = '../../data/textures/ui/Achievement.png')] private var imgIcon:Class;
+		[Embed(source = '../../data/audio/award.mp3')] private var sfxAward:Class;
 		
 		public const eACHIEVEMENT_NAME:int = 1;
 		public const eACHIEVEMENT_TEST2:int = 2;
@@ -35,9 +37,14 @@ package game
 		private var m_hiddenXPos:Number;
 		private var m_targetXPos:Number;
 		
+		private var m_awardSound:FlxSound;
+		
 		public function Achievements() 
 		{
 			super();
+			
+			m_awardSound = new FlxSound;
+			m_awardSound.loadEmbedded(sfxAward);
 			
 			m_icons = new FlxGroup;
 			m_names = new FlxGroup;
@@ -141,10 +148,12 @@ package game
 		{
 			if (SaveData.getAchievementStatus(achievementID) == false)
 			{
+				m_awardSound.play();
+				
 				SaveData.setAchievementStatus(true, achievementID);
 				
-				// TO DO: Unlock notification? Maybe even just a sound
-				m_icons.members[achievementID-1].alpha = 1;
+				m_icons.members[achievementID - 1].alpha = 1;
+				m_names.members[achievementID-1].alpha = 1;
 				m_descs.members[achievementID-1].alpha = 1;
 			}
 		}

@@ -4,6 +4,7 @@ package ui
 	import org.flixel.FlxButton;
 	import org.flixel.FlxG;
 	import org.flixel.FlxPoint;
+	//import org.flixel.FlxSound;
 	import org.flixel.FlxText;
 	
 	/**
@@ -13,6 +14,7 @@ package ui
 	public class BubbleButton extends FlxButton
 	{
 		[Embed(source = '../../data/textures/ui/BubbleButton.png')] private var imgBubbleButton:Class;
+		//[Embed(source = '../../data/audio/thwip.mp3')] private var sfxThwip:Class;
 		
 		public static var m_lastButtonIDClicked:uint;
 		
@@ -22,6 +24,8 @@ package ui
 		public var m_thinkingTime:Number = 0;
 		
 		private var m_buttonTimer:Number = 0;
+		
+		//private var m_buttonSound:FlxSound;
 		
 		public function BubbleButton(centreX:Number, centreY:Number, caption:String = null, OnClick:Function = null) 
 		{
@@ -40,6 +44,9 @@ package ui
 			label.antialiasing = true;
 			
 			allowCollisions = NONE;
+			
+			//m_buttonSound = new FlxSound;
+			//m_buttonSound.loadEmbedded(sfxThwip);
 		}
 		
 		override public function update():void 

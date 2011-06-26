@@ -3,6 +3,7 @@ package ui
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxPoint;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxText;
 	
@@ -14,6 +15,7 @@ package ui
 	{
 		[Embed(source = '../../data/textures/ui/TextBox.png')] private var imgBox:Class;
 		[Embed(source = '../../data/textures/ui/TextBox_prompt.png')] private var imgPrompt:Class;
+		[Embed(source = '../../data/audio/thwip.mp3')] private var sfxThwip:Class;
 		
 		private const TEXT_INDENT_X:Number = 25.0;
 		private const TEXT_INDENT_Y:Number = 10;
@@ -29,6 +31,8 @@ package ui
 		private var m_promptCallback:Function;
 		private var m_readyToProceed:Boolean = false;
 		private var m_readoutTimer:Number = 0;
+		
+		private var m_buttonSound:FlxSound;
 		
 		public function TextPanel(showPrompt:Boolean = false) 
 		{
@@ -51,6 +55,9 @@ package ui
 				
 				add(m_prompt);
 			}
+			
+			m_buttonSound = new FlxSound;
+			m_buttonSound.loadEmbedded(sfxThwip);
 		}
 		
 		override public function update():void 
@@ -130,6 +137,8 @@ package ui
 			m_cursorPos = 0;
 			if (m_prompt)
 				m_prompt.visible = false;
+				
+			m_buttonSound.play();
 		}
 		
 		public function SetPosition(posX:Number, posY:Number):void
