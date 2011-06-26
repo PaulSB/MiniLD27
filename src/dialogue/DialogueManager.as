@@ -32,7 +32,7 @@ package dialogue
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
 		private var m_buttonTimer:Number = 0.0;
-		private static var m_comfortLevel:uint = 79;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
+		private static var m_comfortLevel:uint = 19;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
 		private var m_buttonsUsed:Array;
 		
 		// Graphic objects
@@ -118,8 +118,23 @@ package dialogue
 		{
 			shutDownDialogue();
 			
-			// TEMP
-			m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you.");
+			switch (getCurrentComfortState())
+			{
+				case 4:
+				case 3:
+				case 2:
+					m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you.");
+					break;
+				case 1:
+					m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "Excuse me.");
+					break;
+				case 0:
+					m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "...");
+					break;
+				
+				default:
+					break;
+			}
 		}
 		
 		static public function getCurrentComfortState():int

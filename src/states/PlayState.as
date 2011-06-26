@@ -15,7 +15,7 @@ package states
 	 */
 	public class PlayState extends FlxState
 	{
-		private const GAME_DURATION:Number = 60;		// Seconds
+		private const GAME_DURATION:Number = 20;		// Seconds
 		private const END_FADEOUT_TIME:Number = 2.5;	// Seconds
 		
 		// Time-based game states

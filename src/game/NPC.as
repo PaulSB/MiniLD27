@@ -17,6 +17,8 @@ package game
 		[Embed(source = '../../data/textures/npc/NPC_intro_1.png')] private var imgNPCintro1:Class;
 		[Embed(source = '../../data/textures/npc/NPC_intro_2.png')] private var imgNPCintro2:Class;
 		[Embed(source = '../../data/textures/npc/NPC_intro_3.png')] private var imgNPCintro3:Class;
+		[Embed(source = '../../data/textures/npc/NPC_outtro_2.png')] private var imgNPCouttro2:Class;
+		[Embed(source = '../../data/textures/npc/NPC_outtro_1.png')] private var imgNPCouttro1:Class;
 		
 		// Pseudo-enums
 		static public const eANIM_NONE:uint = 0;
@@ -28,6 +30,8 @@ package game
 		
 		private const introFrames:Array = [imgNPCintro1, imgNPCintro2, imgNPCintro3, imgNPCreadingheadup];
 		private const introPositions:Array = [new FlxPoint(140, 80), new FlxPoint(120, 70), new FlxPoint(150, 55), new FlxPoint(330, 120)];
+		private const outtroFrames:Array = [imgNPCnotreading, imgNPCintro3, imgNPCouttro2, imgNPCouttro1];
+		private const outtroPositions:Array = [new FlxPoint(330, 120), new FlxPoint(150, 55), new FlxPoint(120, 70), new FlxPoint(140, 80),];
 		private const comfortFrames:Array = [imgNPCreadingheaddown, imgNPCreadingheadup, imgNPCreadingheadup, imgNPCnotreading, imgNPCnotreading];
 		private const comfortPositions:Array = [new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120)];
 		
@@ -137,14 +141,14 @@ package game
 				{
 					if (m_animParam == 0)
 					{
-						if (m_animTimer < INTRO_ANIM_TIME)
+						if (m_animTimer < OUTTRO_ANIM_TIME)
 						{
 							// Transition
 							visible = true;
 							
-							loadGraphic(introFrames[m_animParam]);
-							x = introPositions[m_animParam].x;
-							y = introPositions[m_animParam].y;
+							loadGraphic(outtroFrames[m_animParam]);
+							x = outtroPositions[m_animParam].x;
+							y = outtroPositions[m_animParam].y;
 							alpha = 0;
 							
 							m_animParam++;
@@ -152,13 +156,13 @@ package game
 					}
 					else
 					{
-						frameStartTime = INTRO_ANIM_TIME - (INTRO_ANIM_TIME * (m_animParam-1)/4.0)
+						frameStartTime = OUTTRO_ANIM_TIME - (OUTTRO_ANIM_TIME * (m_animParam - 1) / 4.0);
 						if (m_animTimer < (frameStartTime - 1.0))
 						{
 							// Transition
-							loadGraphic(introFrames[m_animParam]);
-							x = introPositions[m_animParam].x;
-							y = introPositions[m_animParam].y;
+							loadGraphic(outtroFrames[m_animParam]);
+							x = outtroPositions[m_animParam].x;
+							y = outtroPositions[m_animParam].y;
 							alpha = 0;
 							
 							m_animParam++;
@@ -187,13 +191,7 @@ package game
 				}
 				else 
 				{
-					// Intro anim over, load current idle graphic
-					m_lastComforState = DialogueManager.getCurrentComfortState();
-					loadGraphic(comfortFrames[m_lastComforState]);
-					x = comfortPositions[m_lastComforState].x;
-					y = comfortPositions[m_lastComforState].y;
-					alpha = 1;
-					
+					// outtro anim over, finished
 					m_currentAnim = eANIM_NONE;
 					m_animTimer = 0.0;
 				}
