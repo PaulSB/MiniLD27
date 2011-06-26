@@ -3,6 +3,7 @@ package states
 	import game.SaveData;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxSound;
 	import org.flixel.FlxSprite;
 	import org.flixel.FlxState;
 	import org.flixel.FlxText;
@@ -19,8 +20,13 @@ package states
 		[Embed(source = '../../data/textures/Background.png')] static public var imgBG:Class;
 		[Embed(source = '../../data/textures/Outside.png')] static public var imgOutside:Class;
 		
+		[Embed(source = '../../data/audio/title.mp3')] private var musicTitle:Class;
+		
 		private var m_startButton:BubbleButton;
 		private var m_eraseButton:BubbleButton;
+
+		// Sound
+		private var m_titleMusic:FlxSound;
 		
 		override public function create():void
 		{
@@ -53,12 +59,24 @@ package states
 			add(m_startButton);
 			if (FlxG.debug)
 				add(m_eraseButton);
+			
+			m_titleMusic = new FlxSound;
+			m_titleMusic.loadEmbedded(musicTitle, true);
+			m_titleMusic.play(true);
+		}
+		
+		override public function update():void 
+		{
+			super.update();
+			
+			m_titleMusic.update();	// Needed for fadeout, seemingly
 		}
 		
 		private function startGame():void
 		{
 			// Begin fade prior to starting game
 			FlxG.fade(0xffffffff, 0.5, onFade);
+			m_titleMusic.fadeOut(0.5);
 		}
 		
 		private function eraseData():void
@@ -68,6 +86,7 @@ package states
 		
 		private function onFade():void
 		{
+			m_titleMusic.stop();
 			FlxG.switchState( new PlayState() );
 		}
 	}
