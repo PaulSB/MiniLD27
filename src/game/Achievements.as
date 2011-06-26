@@ -12,8 +12,7 @@ package game
 	 */
 	public class Achievements extends FlxGroup
 	{
-		// TEMP
-		[Embed(source = '../../data/textures/ui/TextBox_prompt.png')] private var imgIcon:Class;
+		[Embed(source = '../../data/textures/ui/Achievement.png')] private var imgIcon:Class;
 		
 		public const eACHIEVEMENT_NAME:int = 1;
 		public const eACHIEVEMENT_TEST2:int = 2;
@@ -61,7 +60,7 @@ package game
 				m_names.add(name);
 				
 				var desc:FlxText = new FlxText(FlxG.width - textWidth, icon.y + icon.height * 0.5, textWidth, "");
-				desc.setFormat("Bertham", 16, 0x404040, "left");
+				desc.setFormat("Bertham", 16, 0x808080, "left");
 				desc.alpha = unlocked ? 1 : 0;
 				m_descs.add(desc);
 			}
@@ -97,7 +96,7 @@ package game
 			}
 			
 			var achievementLoop:int = 0;
-			if ((m_backing.x < m_targetXPos +1 && m_backing.x > m_targetXPos -1) && m_backing.velocity.x != 0)
+			if ((m_backing.x < m_targetXPos +5 && m_backing.x > m_targetXPos -5) && m_backing.velocity.x != 0)
 			{
 				// Stop
 				m_backing.velocity.x = 0;
