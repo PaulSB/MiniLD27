@@ -103,8 +103,6 @@ package states
 					else
 					{
 						m_currentGameState = eGAMESTATE_JOURNEYEND;
-						
-						m_dialogue.forceGoToEndDialogue();
 					}
 				}
 			}

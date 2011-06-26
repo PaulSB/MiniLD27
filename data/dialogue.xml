@@ -3,17 +3,20 @@
 	<nodes>
 		<node id="1" name="OPENER">
 			<buttonid>0</buttonid>
-			<buttonid>1</buttonid>
 		</node>
 		<node id="2" name="QHUB1">
+			<buttonid>2</buttonid>
 			<buttonid>1</buttonid>
+		</node>
+		<node id="3" name="NAMECOMMENT">
+			<buttonid>3</buttonid>
 		</node>
 	</nodes>
 	<buttons>
 		<button id="0" name="HI" text="Hi" time="0">
 			<body>Hi.</body>
 			<responses>
-				<response>
+				<response comfort="0">
 					<body>Hi.</body>
 					<nextnode>2</nextnode>
 				</response>
@@ -28,6 +31,24 @@
 				</response>
 				<response comfort="0">
 					<body>Sorry?</body>
+					<nextnode>2</nextnode>
+				</response>
+			</responses>
+		</button>
+		<button id="2" name="NAME" text="Name" time="1">
+			<body>What's your name?</body>
+			<responses>
+				<response comfort="0">
+					<body>Alexa.</body>
+					<nextnode>3</nextnode>
+				</response>
+			</responses>
+		</button>
+		<button id="3" name="PRETTYNAME" text="Pretty" time="1">
+			<body>Pretty name.</body>
+			<responses>
+				<response comfort="0">
+					<body>Thanks... I guess.</body>
 					<nextnode>2</nextnode>
 				</response>
 			</responses>

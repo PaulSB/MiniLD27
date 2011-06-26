@@ -15,7 +15,8 @@ package dialogue
 		// Dialogue node IDs	***THESE ARE HARD-CODED INTO XML AND CAN NOT CHANGE!!!***
 		public static const eDIALOGUE_NONE:uint = 0;
 		public static const eDIALOGUE_OPENER:uint = 1;
-		public static const eDIALOGUE_QHUB1:uint = 2;	// "QHUB" = Question hub, major branching point where new conv. threads are available
+		//public static const eDIALOGUE_QHUB1:uint = 2;	// "QHUB" = Question hub, major branching point where new conv. threads are available
+		//public static const eDIALOGUE_NAMECOMMENT:uint = 3;
 		
 		// State of dialogue at given node
 		private const eDIALOGUESTATE_BUTTONS:uint = 0;
@@ -115,6 +116,7 @@ package dialogue
 				button.setPos(BUTTON_X_POS, BUTTON_Y_POS_START);
 				button.label.y = BUTTON_Y_POS_START;
 				button.active = false;
+				button.m_buttonID = -1;
 			}
 		}
 		
@@ -147,7 +149,7 @@ package dialogue
 			{
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 				
-				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked));
+				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel));
 			}
 		}
 	}

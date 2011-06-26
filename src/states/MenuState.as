@@ -40,7 +40,7 @@ package states
 			var tMeTxt:FlxText = new FlxText(0, FlxG.height -40, FlxG.width, "A game by Paul S Burgess for Mini-Ludum Dare #27");
 			tMeTxt.setFormat("Bertham", 24, 0x000000, "center");
 			var tTitle:FlxText = new FlxText(FlxG.width * 0.5, 20, FlxG.width * 0.5 -20, "\"Chance Encounter\"");
-			tTitle.setFormat("Bertham", 48, 0x000000, "left");
+			tTitle.setFormat("Bertham", 48, 0x000000, "left", 0xffffff);
 			
 			m_tStartButton = new BubbleButton(FlxG.width * 0.5, FlxG.height * 0.5, "PLAY", startGame);
 			

@@ -18,7 +18,7 @@ package ui
 		
 		public var m_minYpos:Number = 0;
 		public var m_buttonSpeed:Number = 0;
-		public var m_buttonID:uint = 0;
+		public var m_buttonID:int = -1;
 		public var m_thinkingTime:Number = 0;
 		
 		private var m_buttonTimer:Number = 0;
@@ -75,14 +75,17 @@ package ui
 		{
 			if (status == PRESSED)
 			{
-				// Store off button ID so we know what was just pressed
-				m_lastButtonIDClicked = m_buttonID;
+				if (m_buttonID > -1)
+				{
+					// Store off button ID so we know what was just pressed
+					m_lastButtonIDClicked = m_buttonID;
+				}
 				
 				super.onMouseUp(event);
 			}
 		}
 		
-		public function setupButton(caption:String = null, OnClick:Function = null,	buttonID:uint = 0, time:Number = 0.0, speed:Number = 0.0):void
+		public function setupButton(caption:String = null, OnClick:Function = null,	buttonID:int = -1, time:Number = 0.0, speed:Number = 0.0):void
 		{
 			label.text = caption;
 			

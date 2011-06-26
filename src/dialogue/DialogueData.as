@@ -165,18 +165,26 @@ package dialogue
 			return "INVALID STRING";
 		}
 		
-		public function getNextNodeByButtonID(id:uint):uint
+		public function getNextNodeByButtonID(id:uint, comfort:uint):uint
 		{
 			var numEntries:int = m_xmlData.buttons.children().length();
 			
             var idList:XMLList = m_xmlData.buttons.button.@id;  
-            var nodeList:XMLList =  m_xmlData.buttons.button.responses.response.nextnode;
 			
 			for (var loop:int = 0; loop < numEntries; loop++)
 			{
 				if (idList[loop] == id)
 				{
-					return nodeList[loop];
+					var button:XML = m_xmlData.buttons.button[loop];
+					
+					var comfortList:XMLList = button.responses.response.@comfort;
+					var nodeList:XMLList =  button.responses.response.nextnode;
+					
+					for (loop = 0; loop < nodeList.length(); loop++)
+					{
+						if (comfortList[loop] <= comfort)
+							return nodeList[loop];
+					}
 				}
 			}
 			
