@@ -185,6 +185,36 @@ package dialogue
 						if (comfortList[loop] <= comfort)
 							return nodeList[loop];
 					}
+					
+					break;
+				}
+			}
+			
+			return 0;
+		}
+		
+		public function getComfortBonusByButtonID(id:uint, comfort:uint):int
+		{
+			var numEntries:int = m_xmlData.buttons.children().length();
+			
+            var idList:XMLList = m_xmlData.buttons.button.@id;  
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == id)
+				{
+					var button:XML = m_xmlData.buttons.button[loop];
+					
+					var comfortList:XMLList = button.responses.response.@comfort;
+					var bonusList:XMLList =  button.responses.response.comfortbonus;
+					
+					for (loop = 0; loop < bonusList.length(); loop++)
+					{
+						if (comfortList[loop] <= comfort)
+							return bonusList[loop];
+					}
+					
+					break;
 				}
 			}
 			

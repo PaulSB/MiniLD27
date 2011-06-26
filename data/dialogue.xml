@@ -18,11 +18,12 @@
 			<responses>
 				<response comfort="0">
 					<body>Hi.</body>
+					<comfortbonus>2</comfortbonus>
 					<nextnode>2</nextnode>
 				</response>
 			</responses>
 		</button>
-		<button id="1" name="MUDKIPZ" text="Mudkipz?" time="5">
+		<button id="1" name="MUDKIPZ" text="Mudkipz?" time="10">
 			<body>Do you leik mudkipz?</body>
 			<responses>
 				<response comfort="60">

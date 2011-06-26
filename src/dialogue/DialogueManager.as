@@ -150,6 +150,8 @@ package dialogue
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 				
 				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel));
+				
+				m_comfortLevel += m_dialogueData.getComfortBonusByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
 			}
 		}
 	}
