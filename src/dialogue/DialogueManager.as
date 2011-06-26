@@ -34,6 +34,7 @@ package dialogue
 		private var m_dialogueData:DialogueData;
 		private var m_buttonTimer:Number = 0.0;
 		private var m_comfortLevel:uint = 20;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
+		private var m_buttonsUsed:Array;
 		
 		// Graphic objects
 		private var m_optionButtons:FlxGroup;
@@ -66,6 +67,12 @@ package dialogue
 			
 			// Init xml data
 			m_dialogueData = new DialogueData;
+			
+			m_buttonsUsed = new Array(m_dialogueData.getNumberOfButtons());
+			for (var buttonLoop:int = 0; buttonLoop < m_buttonsUsed.length; buttonLoop++)
+			{
+				m_buttonsUsed[buttonLoop] = false;
+			}
 		}
 		
 		public function initDialogueNode(node:uint):void
@@ -74,14 +81,21 @@ package dialogue
 			
 			resetButtons();
 			
+			var nodeName:String = m_dialogueData.getNodeNameByID(node);
+			var isHub:Boolean = (nodeName.search("QHUB") == 0);
+			
 			// Dialogue option
 			var buttonIDs:Array = m_dialogueData.getButtonIDsByNodeID(m_currentNode);
 			for (var buttonLoop:int = 0; buttonLoop < buttonIDs.length && buttonLoop < MAX_OPTION_BUTTONS; buttonLoop++)
 			{
 				var button:BubbleButton = m_optionButtons.members[buttonLoop];
 				var buttonID:uint = buttonIDs[buttonLoop];
-				button.setupButton(m_dialogueData.getButtonTextByID(buttonID), process,
-									buttonID, m_dialogueData.getButtonTimeByID(buttonID), BUTTON_Y_VELOCITY);
+				
+				if (!m_buttonsUsed[buttonID])
+				{
+					button.setupButton(m_dialogueData.getButtonTextByID(buttonID), process,
+										buttonID, m_dialogueData.getButtonTimeByID(buttonID), BUTTON_Y_VELOCITY);
+				}
 			}
 			
 			m_currentState = eDIALOGUESTATE_BUTTONS;
@@ -125,6 +139,7 @@ package dialogue
 			if (m_currentState == eDIALOGUESTATE_BUTTONS)
 			{
 				m_npcTextbox.setFaded(true);
+				m_buttonsUsed[BubbleButton.m_lastButtonIDClicked] = true;
 				
 				m_currentState = eDIALOGUESTATE_PLAYERSAY;
 				

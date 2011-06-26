@@ -21,6 +21,24 @@ package dialogue
 		
 		// Node stuff
 		
+		public function getNodeNameByID(nodeID:uint):String
+		{
+			var numEntries:int = m_xmlData.nodes.children().length();
+			
+            var idList:XMLList = m_xmlData.nodes.node.@id;  
+            var nameList:XMLList =  m_xmlData.nodes.node.@name;
+			
+			for (var loop:int = 0; loop < numEntries; loop++)
+			{
+				if (idList[loop] == nodeID)
+				{
+					return nameList[loop];
+				}
+			}
+			
+			return "INVALID STRING";
+		}
+		
 		public function getButtonIDsByNodeID(nodeID:uint):Array
 		{
 			var numEntries:int = m_xmlData.nodes.children().length();
@@ -48,6 +66,11 @@ package dialogue
 		}
 		
 		// Button stuff
+		
+		public function getNumberOfButtons():int
+		{
+			return m_xmlData.buttons.children().length();
+		}
 		
 		public function getButtonTextByName(stringID:String):String
 		{
