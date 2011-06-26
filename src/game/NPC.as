@@ -2,6 +2,7 @@ package game
 {
 	import dialogue.DialogueManager;
 	import org.flixel.FlxG;
+	import org.flixel.FlxPoint;
 	import org.flixel.FlxSprite;
 	
 	/**
@@ -12,6 +13,8 @@ package game
 	{
 		[Embed(source = '../../data/textures/npc/NPC_readingheadup.png')] private var imgNPCreadingheadup:Class;
 		[Embed(source = '../../data/textures/npc/NPC_intro_1.png')] private var imgNPCintro1:Class;
+		[Embed(source = '../../data/textures/npc/NPC_intro_2.png')] private var imgNPCintro2:Class;
+		[Embed(source = '../../data/textures/npc/NPC_intro_3.png')] private var imgNPCintro3:Class;
 		
 		// Pseudo-enums
 		static public const eANIM_NONE:uint = 0;
@@ -20,6 +23,9 @@ package game
 		
 		public const INTRO_ANIM_TIME:Number = 4.0;
 		public const OUTTRO_ANIM_TIME:Number = 4.0;
+		
+		private const introFrames:Array = [imgNPCintro1, imgNPCintro2, imgNPCintro3, imgNPCreadingheadup];
+		private const introPositions:Array = [new FlxPoint(140, 80), new FlxPoint(120, 70), new FlxPoint(150, 55), new FlxPoint(330, 120)];
 		
 		// Member vars
 		private var m_currentAnim:uint = eANIM_NONE;
@@ -52,11 +58,10 @@ package game
 		
 		private function updateAnim():void
 		{
-			if (m_currentAnim == eANIM_NPC_ENTER || m_currentAnim == eANIM_NPC_EXIT)	// TO DO: Exit anim
+			if (m_currentAnim == eANIM_NPC_ENTER)
 			{
 				if (m_animTimer > 0.0)
 				{
-					// TO DO: Intermediate anim frames (only 1 or 2)
 					if (m_animParam == 0)
 					{
 						if (m_animTimer < INTRO_ANIM_TIME)
@@ -64,39 +69,44 @@ package game
 							// Transition
 							visible = true;
 							
-							loadGraphic(imgNPCintro1);
-							x = 140;
-							y = 80;
+							loadGraphic(introFrames[m_animParam]);
+							x = introPositions[m_animParam].x;
+							y = introPositions[m_animParam].y;
 							alpha = 0;
 							
 							m_animParam++;
 						}
 					}
-					else if (m_animParam == 1)
+					else
 					{
+						var frameStartTime:Number = INTRO_ANIM_TIME - (INTRO_ANIM_TIME * (m_animParam-1)/4.0)
 						var deltaAlpha:Number;
-						if (m_animTimer < (INTRO_ANIM_TIME - 1.0))
+						if (m_animTimer < (frameStartTime - 1.0))
 						{
 							// Transition
-							alpha = 0.0;
+							loadGraphic(introFrames[m_animParam]);
+							x = introPositions[m_animParam].x;
+							y = introPositions[m_animParam].y;
+							alpha = 0;
+							
 							m_animParam++;
 						}
-						else if (m_animTimer < (INTRO_ANIM_TIME - 0.75))
+						else if (m_animTimer < (frameStartTime - 0.75))
 						{
 							// Fade out
-							deltaAlpha = ((m_animTimer - (INTRO_ANIM_TIME - 1.0)) * 4.0);
+							deltaAlpha = ((m_animTimer - (frameStartTime - 1.0)) * 4.0);
 							alpha = deltaAlpha;
 						}
-						else if (m_animTimer < (INTRO_ANIM_TIME - 0.25))
+						else if (m_animTimer < (frameStartTime - 0.25))
 						{
 							// Hold
 							if (alpha < 1.0)
 								alpha = 1.0;
 						}
-						else if (m_animTimer < INTRO_ANIM_TIME)
+						else if (m_animTimer < frameStartTime)
 						{
 							// Fade in
-							deltaAlpha = 1.0 - ((m_animTimer - (INTRO_ANIM_TIME - 0.25)) * 4.0);
+							deltaAlpha = 1.0 - ((m_animTimer - (frameStartTime - 0.25)) * 4.0);
 							alpha = deltaAlpha;
 						}
 					}
@@ -105,14 +115,77 @@ package game
 				}
 				else 
 				{
-					if (m_currentAnim != eANIM_NPC_EXIT)	// TEMP
+					// Intro anim over, load current idle graphic
+					loadGraphic(imgNPCreadingheadup);
+					x = 330;
+					y = 120;
+					alpha = 1;
+					
+					m_currentAnim = eANIM_NONE;
+					m_animTimer = 0.0;
+				}
+			}
+			else if (m_currentAnim == eANIM_NPC_EXIT)	// TO DO
+			{
+				if (m_animTimer > 0.0)
+				{
+					if (m_animParam == 0)
 					{
-						// Intro anim over, load current idle graphic
-						loadGraphic(imgNPCreadingheadup);
-						x = (FlxG.width - width) * 0.5;
-						y = FlxG.height - height + 10;
-						alpha = 1;
+						if (m_animTimer < INTRO_ANIM_TIME)
+						{
+							// Transition
+							visible = true;
+							
+							loadGraphic(introFrames[m_animParam]);
+							x = introPositions[m_animParam].x;
+							y = introPositions[m_animParam].y;
+							alpha = 0;
+							
+							m_animParam++;
+						}
 					}
+					else
+					{
+						frameStartTime = INTRO_ANIM_TIME - (INTRO_ANIM_TIME * (m_animParam-1)/4.0)
+						if (m_animTimer < (frameStartTime - 1.0))
+						{
+							// Transition
+							loadGraphic(introFrames[m_animParam]);
+							x = introPositions[m_animParam].x;
+							y = introPositions[m_animParam].y;
+							alpha = 0;
+							
+							m_animParam++;
+						}
+						else if (m_animTimer < (frameStartTime - 0.75))
+						{
+							// Fade out
+							deltaAlpha = ((m_animTimer - (frameStartTime - 1.0)) * 4.0);
+							alpha = deltaAlpha;
+						}
+						else if (m_animTimer < (frameStartTime - 0.25))
+						{
+							// Hold
+							if (alpha < 1.0)
+								alpha = 1.0;
+						}
+						else if (m_animTimer < frameStartTime)
+						{
+							// Fade in
+							deltaAlpha = 1.0 - ((m_animTimer - (frameStartTime - 0.25)) * 4.0);
+							alpha = deltaAlpha;
+						}
+					}
+					
+					m_animTimer -= FlxG.elapsed;
+				}
+				else 
+				{
+					// Intro anim over, load current idle graphic
+					loadGraphic(imgNPCreadingheadup);
+					x = 330;
+					y = 120;
+					alpha = 1;
 					
 					m_currentAnim = eANIM_NONE;
 					m_animTimer = 0.0;
