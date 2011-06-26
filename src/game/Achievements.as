@@ -17,14 +17,20 @@ package game
 		[Embed(source = '../../data/audio/award.mp3')] private var sfxAward:Class;
 		
 		public const eACHIEVEMENT_NAME:int = 1;
-		public const eACHIEVEMENT_TEST2:int = 2;
-		public const eACHIEVEMENT_TEST3:int = 3;
-		public const eACHIEVEMENT_TEST4:int = 4;
-		public const eACHIEVEMENT_TEST5:int = 5;
+		public const eACHIEVEMENT_POWERS:int = 2;
+		public const eACHIEVEMENT_LIKED:int = 3;
+		public const eACHIEVEMENT_LOVED:int = 4;
+		public const eACHIEVEMENT_STUDENT:int = 5;
+		public const eACHIEVEMENT_ALONE:int = 6;
+		public const eACHIEVEMENT_APPLES:int = 7;
+		public const eACHIEVEMENT_RANOUT:int = 8;
+		public const eACHIEVEMENT_STAREOFF:int = 9;
+		public const eACHIEVEMENT_HATE:int = 10;
+		public const eACHIEVEMENT_MUDKIPZ:int = 11;
 		
-		static public const NUM_ACHIEVEMENTS:int = 5;
+		static public const NUM_ACHIEVEMENTS:int = 11;
 		
-		private const BACKING_WIDTH:Number = 250.0;
+		private const BACKING_WIDTH:Number = 300.0;
 		private const PANEL_MOVE_SPEED:Number = 200.0;
 		
 		// Graphic objects
@@ -76,6 +82,26 @@ package game
 			// Hard-coded achievement text! Wooooooo!
 			m_names.members[eACHIEVEMENT_NAME-1].text = "What's My Name?";
 			m_descs.members[eACHIEVEMENT_NAME-1].text = "Discovered her name";
+			m_names.members[eACHIEVEMENT_POWERS-1].text = "I Have the Powers!";
+			m_descs.members[eACHIEVEMENT_POWERS - 1].text = "I am an international man of mystery";
+			m_names.members[eACHIEVEMENT_LIKED-1].text = "Someone likes me";
+			m_descs.members[eACHIEVEMENT_LIKED-1].text = "Made a friend";
+			m_names.members[eACHIEVEMENT_LOVED - 1].text = "Someone REALLY likes me";
+			m_descs.members[eACHIEVEMENT_LOVED - 1].text = "Had her enthralled by my wit";
+			m_names.members[eACHIEVEMENT_STUDENT-1].text = "Intuition";
+			m_descs.members[eACHIEVEMENT_STUDENT - 1].text = "Correctly guessed she is a student";
+			m_names.members[eACHIEVEMENT_ALONE-1].text = "Forever Alone";
+			m_descs.members[eACHIEVEMENT_ALONE-1].text = "Didn't even talk to her :'(";
+			m_names.members[eACHIEVEMENT_APPLES-1].text = "How You Like Them Apples?";
+			m_descs.members[eACHIEVEMENT_APPLES - 1].text = "Got her number";
+			m_names.members[eACHIEVEMENT_RANOUT-1].text = "I Have No Words";
+			m_descs.members[eACHIEVEMENT_RANOUT - 1].text = "Ran out of things to say!";
+			m_names.members[eACHIEVEMENT_STAREOFF-1].text = "Steel Gaze";
+			m_descs.members[eACHIEVEMENT_STAREOFF - 1].text = "Conducted a staring contest";
+			m_names.members[eACHIEVEMENT_HATE-1].text = "Someone Doesn't Like Me At All";
+			m_descs.members[eACHIEVEMENT_HATE - 1].text = "Ouch";
+			m_names.members[eACHIEVEMENT_MUDKIPZ-1].text = "Mudkipz?";
+			m_descs.members[eACHIEVEMENT_MUDKIPZ-1].text = "She did NOT leik mudkipz";
 			
 			m_shownXPos = FlxG.width - BACKING_WIDTH;
 			m_hiddenXPos = FlxG.width - m_icons.members[0].width;
@@ -153,8 +179,8 @@ package game
 				SaveData.setAchievementStatus(true, achievementID);
 				
 				m_icons.members[achievementID - 1].alpha = 1;
-				m_names.members[achievementID-1].alpha = 1;
-				m_descs.members[achievementID-1].alpha = 1;
+				m_names.members[achievementID - 1].alpha = 1;
+				m_descs.members[achievementID - 1].alpha = 1;
 			}
 		}
 	}

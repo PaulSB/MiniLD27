@@ -2,23 +2,43 @@
 <dialogue>
 	<nodes>
 		<node id="1" name="OPENER">
-			<buttonid>0</buttonid>
+			<buttonid>0</buttonid>	<!--  2 H-->
 		</node>
 		<node id="2" name="QHUB1">
-			<buttonid>2</buttonid>
-			<buttonid>7</buttonid>
-			<buttonid>1</buttonid>
+			<buttonid>2</buttonid>			<!--  3 *1-->		
+			<buttonid>7</buttonid>			<!--  5 exit-->
+			<buttonid>1</buttonid>			<!--  2 -->
 		</node>
 		<node id="3" name="NAMECOMMENT">
-			<buttonid>4</buttonid>
-			<buttonid>3</buttonid>
-			<buttonid>5</buttonid>
+			<buttonid>4</buttonid>	<!--  2 -->
+			<buttonid>3</buttonid>	<!--  2 -->
+			<buttonid>5</buttonid>	<!--  4 H-->
 		</node>
 		<node id="4" name="QHUBRUSSIA">
-			<buttonid>6</buttonid>
+			<buttonid>6</buttonid>			<!--  4 H-->
+			<buttonid>9</buttonid>			<!--  6 exit-->
 		</node>
 		<node id="5" name="JOURNEY">
-			<buttonid>8</buttonid>
+			<buttonid>8</buttonid>	<!--  6 -->
+			<buttonid>10</buttonid>	<!--  7 -->
+			<buttonid>13</buttonid>	<!--  8 -->
+		</node>
+		<node id="6" name="STUDYQ">
+			<buttonid>16</buttonid>	<!--  9 H *5-->
+			<buttonid>17</buttonid>	<!--  9 H-->
+		</node>
+		<node id="7" name="JOURNEYLIE">
+			<buttonid>12</buttonid>	<!--  6 -->
+			<buttonid>11</buttonid>	<!--  6 *2-->
+		</node>
+		<node id="8" name="LITTLETIME">
+			<buttonid>14</buttonid>	<!--  6 -->
+			<buttonid>15</buttonid>	<!--  6 -->
+		</node>
+		<node id="9" name="QHUBSTUDIES">
+			<buttonid>18</buttonid>			<!--  9 H-->
+			<buttonid>19</buttonid>			<!--  9 H-->
+			<buttonid>20</buttonid>			<!--  0 DEATH-->
 		</node>
 	</nodes>
 	<buttons>
@@ -27,7 +47,7 @@
 			<responses>
 				<response comfort="0">
 					<body>Hi.</body>
-					<comfortbonus>2</comfortbonus>
+					<comfortbonus>4</comfortbonus>
 					<nextnode>2</nextnode>
 					<achievement>0</achievement>
 				</response>
@@ -40,13 +60,13 @@
 					<body>Haha... you're crazy.</body>
 					<comfortbonus>0</comfortbonus>
 					<nextnode>2</nextnode>
-					<achievement>0</achievement>
+					<achievement>11</achievement>
 				</response>
 				<response comfort="0">
 					<body>Sorry?</body>
-					<comfortbonus>-5</comfortbonus>
+					<comfortbonus>-10</comfortbonus>
 					<nextnode>2</nextnode>
-					<achievement>0</achievement>
+					<achievement>11</achievement>
 				</response>
 			</responses>
 		</button>
@@ -55,9 +75,9 @@
 			<responses>
 				<response comfort="0">
 					<body>Aleksandra.</body>
-					<comfortbonus>1</comfortbonus>
+					<comfortbonus>2</comfortbonus>
 					<nextnode>3</nextnode>
-					<achievement>1</achievement>	<!-- ACHIEVEMENT: Name -->
+					<achievement>1</achievement>
 				</response>
 			</responses>
 		</button>
@@ -66,7 +86,7 @@
 			<responses>
 				<response comfort="0">
 					<body>Thanks... I guess.</body>
-					<comfortbonus>-3</comfortbonus>
+					<comfortbonus>-6</comfortbonus>
 					<nextnode>2</nextnode>
 					<achievement>0</achievement>
 				</response>
@@ -88,7 +108,7 @@
 			<responses>
 				<response comfort="0">
 					<body>I guess it could be but my parents are Russian. With a 'K-S', not an 'X'.</body>
-					<comfortbonus>3</comfortbonus>
+					<comfortbonus>6</comfortbonus>
 					<nextnode>4</nextnode>
 					<achievement>0</achievement>
 				</response>
@@ -99,7 +119,7 @@
 			<responses>
 				<response comfort="0">
 					<body>I was born in Russia but I don't remember much of it. Cold winters. My Uncle's beard. Little things.</body>
-					<comfortbonus>3</comfortbonus>
+					<comfortbonus>6</comfortbonus>
 					<nextnode>4</nextnode>
 					<achievement>0</achievement>
 				</response>
@@ -110,7 +130,7 @@
 			<responses>
 				<response comfort="0">
 					<body>I'm just on for one stop. You?</body>
-					<comfortbonus>1</comfortbonus>
+					<comfortbonus>2</comfortbonus>
 					<nextnode>5</nextnode>
 					<achievement>0</achievement>
 				</response>
@@ -121,8 +141,146 @@
 			<responses>
 				<response comfort="0">
 					<body>Ah, that's nice.</body>
-					<comfortbonus>3</comfortbonus>
-					<nextnode>0</nextnode>	<!-- DEAD NODE -->
+					<comfortbonus>6</comfortbonus>
+					<nextnode>6</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="9" name="LIVELOCAL" text="Living locally?" time="3">
+			<body>Do you live around here?</body>
+			<responses>
+				<response comfort="0">
+					<body>Yeah I just hopped on here to go meet a friend.</body>
+					<comfortbonus>2</comfortbonus>
+					<nextnode>6</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="10" name="TOPSECRET" text="Top Secret!" time="5">
+			<body>I am travelling on top secret business. If I told you I'd have to kill you.</body>
+			<responses>
+				<response comfort="0">
+					<body>Is that so...</body>
+					<comfortbonus>2</comfortbonus>
+					<nextnode>7</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="11" name="TOPSECRETSTICK" text="Oh yes" time="1">
+			<body>Oh yes. Such is the life of an international man of mystery.</body>
+			<responses>
+				<response comfort="0">
+					<body>Haha... okay, I believe you Mr. Powers.</body>
+					<comfortbonus>10</comfortbonus>
+					<nextnode>6</nextnode>
+					<achievement>2</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="12" name="TOPSECRETFOLD" text="Not really" time="0">
+			<body>Ha, well no, not really.</body>
+			<responses>
+				<response comfort="0">
+					<body>Oh. I think I'm a little disappointed.</body>
+					<comfortbonus>-6</comfortbonus>
+					<nextnode>6</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="13" name="LITTLETIME" text="So little time!" time="0">
+			<body>That stop is only a couple of minutes away.</body>
+			<responses>
+				<response comfort="0">
+					<body>You're right. I barely needed to sit down for this!</body>
+					<comfortbonus>2</comfortbonus>
+					<nextnode>8</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="14" name="LITTLETIMEUS" text="Only just met!" time="2">
+			<body>But this is no good: we've only just met!</body>
+			<responses>
+				<response comfort="0">
+					<body>Heh. Then take this as a good lesson in making every moment count.</body>
+					<comfortbonus>10</comfortbonus>
+					<nextnode>6</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="15" name="LITTLETIMEPAUSE" text="..." time="0">
+			<body>...</body>
+			<responses>
+				<response comfort="0">
+					<body>...</body>
+					<comfortbonus>-6</comfortbonus>
+					<nextnode>6</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="16" name="PASTSTUDYNOW" text="Guess: Student?" time="0">
+			<body>Let me guess... you're a student?</body>
+			<responses>
+				<response comfort="0">
+					<body>I guess I give myself away somehow! Yeah I study over at the University.</body>
+					<comfortbonus>6</comfortbonus>
+					<nextnode>9</nextnode>
+					<achievement>5</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="17" name="PASTSTUDYPAST" text="Guess: Employed?" time="1">
+			<body>Let me guess... you work around here?</body>
+			<responses>
+				<response comfort="0">
+					<body>No I'm still at college; I study over at the University.</body>
+					<comfortbonus>0</comfortbonus>
+					<nextnode>9</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="18" name="STUDYCOURSE" text="Course?" time="0">
+			<body>What do you study?</body>
+			<responses>
+				<response comfort="0">
+					<body>I study politics.</body>
+					<comfortbonus>6</comfortbonus>
+					<nextnode>9</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="19" name="STUDYLIKEIT" text="Like it?" time="1">
+			<body>Enjoying it?</body>
+			<responses>
+				<response comfort="0">
+					<body>Well sure, it's college.</body>
+					<comfortbonus>-6</comfortbonus>
+					<nextnode>9</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="20" name="TERMINUS" text="Stare-off" time="10">
+			<body>Let's have a staring contest</body>
+			<responses>
+				<response comfort="40">
+					<body>What? Yeah okay, but I'll win.</body>
+					<comfortbonus>6</comfortbonus>
+					<nextnode>0</nextnode>
+					<achievement>9</achievement>
+				</response>
+				<response comfort="0">
+					<body>You are very strange. Please don't talk to me.</body>
+					<comfortbonus>-20</comfortbonus>
+					<nextnode>0</nextnode>
 					<achievement>0</achievement>
 				</response>
 			</responses>

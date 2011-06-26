@@ -104,6 +104,9 @@ package dialogue
 		
 		public function shutDownDialogue():void
 		{
+			if (!isDialogueActive())
+				PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_ALONE);
+			
 			resetButtons();
 			m_playerTextbox.visible = false;
 			m_npcTextbox.visible = false;
@@ -122,6 +125,9 @@ package dialogue
 			{
 				case 4:
 				case 3:
+					m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Hey look... here's my number. Call me sometime if you like.");
+					PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_APPLES);
+					break;
 				case 2:
 					m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, "This is me. Nice meeting you.");
 					break;
@@ -139,11 +145,32 @@ package dialogue
 		
 		static public function getCurrentComfortState():int
 		{
-			if (m_comfortLevel > 80)		return 4;
-			else if (m_comfortLevel > 60)	return 3;
-			else if (m_comfortLevel > 40)	return 2;
-			else if (m_comfortLevel > 20)	return 1;
-			else							return 0;
+			if (m_comfortLevel > 80)
+			{
+				//PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_LOVED);
+				return 4;
+			}
+			else if (m_comfortLevel > 60)
+			{
+				PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_LOVED);
+				return 3;
+			}
+			else if (m_comfortLevel > 40)
+			{
+				PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_LIKED);
+				return 2;
+			}
+			else if (m_comfortLevel > 20)
+			{
+				return 1;
+			}
+			else 
+			{
+				if (m_comfortLevel == 0)
+					PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_HATE);
+					
+				return 0;
+			}
 		}
 
 		private function resetButtons():void
@@ -190,6 +217,8 @@ package dialogue
 				var nextNode:int = m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
 				if (nextNode > 0)
 					initDialogueNode(nextNode);
+				else
+					PlayState.m_achievements.awardAchievement(PlayState.m_achievements.eACHIEVEMENT_RANOUT);
 				
 				// Awards
 				var achievementID:int = m_dialogueData.getAchievementByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);

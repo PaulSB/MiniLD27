@@ -32,7 +32,7 @@ package game
 		private const introPositions:Array = [new FlxPoint(140, 80), new FlxPoint(120, 70), new FlxPoint(150, 55), new FlxPoint(330, 120)];
 		private const outtroFrames:Array = [imgNPCnotreading, imgNPCintro3, imgNPCouttro2, imgNPCouttro1];
 		private const outtroPositions:Array = [new FlxPoint(330, 120), new FlxPoint(150, 55), new FlxPoint(120, 70), new FlxPoint(140, 80),];
-		private const comfortFrames:Array = [imgNPCreadingheaddown, imgNPCreadingheadup, imgNPCreadingheadup, imgNPCnotreading, imgNPCnotreading];
+		private const comfortFrames:Array = [imgNPCreadingheaddown, imgNPCreadingheadup, imgNPCnotreading, imgNPCnotreading, imgNPCnotreading];
 		private const comfortPositions:Array = [new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120)];
 		
 		// Member vars
