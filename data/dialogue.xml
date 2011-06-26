@@ -6,10 +6,19 @@
 		</node>
 		<node id="2" name="QHUB1">
 			<buttonid>2</buttonid>
+			<buttonid>7</buttonid>
 			<buttonid>1</buttonid>
 		</node>
 		<node id="3" name="NAMECOMMENT">
+			<buttonid>4</buttonid>
 			<buttonid>3</buttonid>
+			<buttonid>5</buttonid>
+		</node>
+		<node id="4" name="QHUBRUSSIA">
+			<buttonid>6</buttonid>
+		</node>
+		<node id="5" name="JOURNEY">
+			<buttonid>8</buttonid>
 		</node>
 	</nodes>
 	<buttons>
@@ -45,7 +54,7 @@
 			<body>What's your name?</body>
 			<responses>
 				<response comfort="0">
-					<body>Alexa.</body>
+					<body>Aleksandra.</body>
 					<comfortbonus>1</comfortbonus>
 					<nextnode>3</nextnode>
 					<achievement>1</achievement>	<!-- ACHIEVEMENT: Name -->
@@ -59,6 +68,61 @@
 					<body>Thanks... I guess.</body>
 					<comfortbonus>-3</comfortbonus>
 					<nextnode>2</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="4" name="PLEASANTRYNAME" text="Pleasantry" time="0">
+			<body>Aleksandra - nice meeting you.</body>
+			<responses>
+				<response comfort="0">
+					<body>...</body>
+					<comfortbonus>0</comfortbonus>
+					<nextnode>2</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="5" name="ENGLISHNAME" text="English?" time="3">
+			<body>Cool. Is that an English name?</body>
+			<responses>
+				<response comfort="0">
+					<body>I guess it could be but my parents are Russian. With a 'K-S', not an 'X'.</body>
+					<comfortbonus>3</comfortbonus>
+					<nextnode>4</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="6" name="RUSSIA" text="Russia?" time="0">
+			<body>Were you born here or Russia?</body>
+			<responses>
+				<response comfort="0">
+					<body>I was born in Russia but I don't remember much of it. Cold winters. My Uncle's beard. Little things.</body>
+					<comfortbonus>3</comfortbonus>
+					<nextnode>4</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="7" name="WHERETO" text="Where to?" time="2">
+			<body>Where are you headed to?</body>
+			<responses>
+				<response comfort="0">
+					<body>I'm just on for one stop. You?</body>
+					<comfortbonus>1</comfortbonus>
+					<nextnode>5</nextnode>
+					<achievement>0</achievement>
+				</response>
+			</responses>
+		</button>
+		<button id="8" name="VISITPARENTS" text="Visit parents" time="1">
+			<body>I'm off to visit my parents, remind them I'm still alive.</body>
+			<responses>
+				<response comfort="0">
+					<body>Ah, that's nice.</body>
+					<comfortbonus>3</comfortbonus>
+					<nextnode>0</nextnode>	<!-- DEAD NODE -->
 					<achievement>0</achievement>
 				</response>
 			</responses>

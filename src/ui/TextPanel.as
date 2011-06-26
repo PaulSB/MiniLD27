@@ -16,7 +16,7 @@ package ui
 		[Embed(source = '../../data/textures/ui/TextBox_prompt.png')] private var imgPrompt:Class;
 		
 		private const TEXT_INDENT_X:Number = 25.0;
-		private const TEXT_INDENT_Y:Number = 12.5;
+		private const TEXT_INDENT_Y:Number = 10;
 		private const TEXT_TYPE_LETTER_INTERVAL:Number = 0.05;
 		
 		private var m_text:String;

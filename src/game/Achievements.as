@@ -68,13 +68,13 @@ package game
 			
 			// Hard-coded achievement text! Wooooooo!
 			m_names.members[eACHIEVEMENT_NAME-1].text = "What's My Name?";
-			m_descs.members[eACHIEVEMENT_NAME-1].text = "Discover her name";
+			m_descs.members[eACHIEVEMENT_NAME-1].text = "Discovered her name";
 			
 			m_shownXPos = FlxG.width - BACKING_WIDTH;
 			m_hiddenXPos = FlxG.width - m_icons.members[0].width;
 			m_backing = new FlxSprite(m_shownXPos, m_icons.members[0].height);
 			var backingHeight:Number = (m_icons.members[NUM_ACHIEVEMENTS - 1].y + m_icons.members[NUM_ACHIEVEMENTS - 1].height) - m_backing.y;
-			m_backing.makeGraphic(BACKING_WIDTH, backingHeight, 0xd0ffffff);
+			m_backing.makeGraphic(BACKING_WIDTH, backingHeight, 0xdfffffff);
 			add(m_backing);
 			
 			add(m_icons);

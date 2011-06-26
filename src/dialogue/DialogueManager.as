@@ -26,7 +26,7 @@ package dialogue
 		private const BUTTON_X_POS:Number = 180.0;
 		private const BUTTON_Y_POS_START:Number = FlxG.height + 40;
 		private const BUTTON_Y_POS_FINISH:Number = 125.0;
-		public static const BUTTON_Y_VELOCITY:Number = -30.0;
+		public static const BUTTON_Y_VELOCITY:Number = -40.0;
 		
 		private var m_currentNode:uint = eDIALOGUE_NONE;
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
@@ -187,7 +187,9 @@ package dialogue
 			{
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 				
-				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel));
+				var nextNode:int = m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
+				if (nextNode > 0)
+					initDialogueNode(nextNode);
 				
 				// Awards
 				var achievementID:int = m_dialogueData.getAchievementByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
