@@ -1,5 +1,6 @@
 package 
 {
+	import game.SaveData;
 	import flash.ui.Mouse;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGame;
@@ -20,7 +21,10 @@ package
 		public function Main()
 		{			
 			// Entry - invoke FlxGame constructor
-			super(800, 600, MenuState, 1, 60, 30, true);			
+			super(800, 600, MenuState, 1, 60, 30, true);
+			
+			// Load any save data
+			SaveData.load();
 		}
 	}
 }

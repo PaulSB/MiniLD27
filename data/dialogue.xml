@@ -20,6 +20,7 @@
 					<body>Hi.</body>
 					<comfortbonus>2</comfortbonus>
 					<nextnode>2</nextnode>
+					<achievement>0</achievement>
 				</response>
 			</responses>
 		</button>
@@ -28,11 +29,15 @@
 			<responses>
 				<response comfort="60">
 					<body>Haha... you're crazy.</body>
+					<comfortbonus>0</comfortbonus>
 					<nextnode>2</nextnode>
+					<achievement>0</achievement>
 				</response>
 				<response comfort="0">
 					<body>Sorry?</body>
+					<comfortbonus>-5</comfortbonus>
 					<nextnode>2</nextnode>
+					<achievement>0</achievement>
 				</response>
 			</responses>
 		</button>
@@ -41,7 +46,9 @@
 			<responses>
 				<response comfort="0">
 					<body>Alexa.</body>
+					<comfortbonus>1</comfortbonus>
 					<nextnode>3</nextnode>
+					<achievement>1</achievement>	<!-- ACHIEVEMENT: Name -->
 				</response>
 			</responses>
 		</button>
@@ -50,7 +57,9 @@
 			<responses>
 				<response comfort="0">
 					<body>Thanks... I guess.</body>
+					<comfortbonus>-3</comfortbonus>
 					<nextnode>2</nextnode>
+					<achievement>0</achievement>
 				</response>
 			</responses>
 		</button>

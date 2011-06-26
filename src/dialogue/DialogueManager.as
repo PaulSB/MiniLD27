@@ -3,6 +3,7 @@ package dialogue
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
+	import states.PlayState;
 	import ui.BubbleButton;
 	import ui.TextPanel;
 	
@@ -147,7 +148,7 @@ package dialogue
 				
 				var bodyText:String = m_dialogueData.getPlayerTextByButtonID(BubbleButton.m_lastButtonIDClicked);
 				
-				m_playerTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, FlxG.height - m_playerTextbox.GetSize().y +0,
+				m_playerTextbox.SetupPanel((FlxG.width - m_playerTextbox.GetSize().x) * 0.5, FlxG.height - m_playerTextbox.GetSize().y,
 											bodyText, process);
 			}
 			else if (m_currentState == eDIALOGUESTATE_PLAYERSAY)
@@ -161,10 +162,17 @@ package dialogue
 				m_npcTextbox.SetupPanel((FlxG.width - m_npcTextbox.GetSize().x) * 0.5, 0, responseText, process);
 			}
 			else if (m_currentState == eDIALOGUESTATE_NPCSAY)
-			{
+			{				
 				m_currentState = eDIALOGUESTATE_BUTTONS;
 				
 				initDialogueNode(m_dialogueData.getNextNodeByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel));
+				
+				// Awards
+				var achievementID:int = m_dialogueData.getAchievementByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
+				if (achievementID > 0)
+				{
+					PlayState.m_achievements.awardAchievement(achievementID);
+				}
 				
 				m_comfortLevel += m_dialogueData.getComfortBonusByButtonID(BubbleButton.m_lastButtonIDClicked, m_comfortLevel);
 			}

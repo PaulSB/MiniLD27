@@ -1,6 +1,7 @@
 package states 
 {
 	import dialogue.DialogueManager;
+	import game.Achievements;
 	import game.NPC;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
@@ -31,6 +32,7 @@ package states
 		
 		// Graphic objects
 		private var m_npc:NPC;							// The character you are talking to
+		public static var m_achievements:Achievements;	// Achievement manger
 		public static var m_dialogue:DialogueManager;	// The dialogue manager object, containing all text and conversation options
 		
 		// Render layers
@@ -62,9 +64,12 @@ package states
 			
 			m_npc = new NPC;
 			s_layerScene.add(m_npc);
-			
+
 			m_dialogue = new DialogueManager;
 			s_layerUI.add(m_dialogue);
+			
+			m_achievements = new Achievements;
+			s_layerUI.add(m_achievements);
 			
 			// Add render layers
 			add(s_layerOutside);

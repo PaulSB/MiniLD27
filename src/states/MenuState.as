@@ -1,5 +1,6 @@
 package states 
 {
+	import game.SaveData;
 	import org.flixel.FlxG;
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
@@ -18,7 +19,8 @@ package states
 		[Embed(source = '../../data/textures/Background.png')] static public var imgBG:Class;
 		[Embed(source = '../../data/textures/Outside.png')] static public var imgOutside:Class;
 		
-		private var m_tStartButton:BubbleButton;
+		private var m_startButton:BubbleButton;
+		private var m_eraseButton:BubbleButton;
 		
 		override public function create():void
 		{
@@ -42,17 +44,26 @@ package states
 			var tTitle:FlxText = new FlxText(FlxG.width * 0.5, 20, FlxG.width * 0.5 -20, "\"Chance Encounter\"");
 			tTitle.setFormat("Bertham", 48, 0x000000, "left", 0xffffff);
 			
-			m_tStartButton = new BubbleButton(FlxG.width * 0.5, FlxG.height * 0.5, "PLAY", startGame);
+			m_startButton = new BubbleButton(FlxG.width * 0.5, FlxG.height * 0.5, "PLAY", startGame);
+			if (FlxG.debug)
+				m_eraseButton = new BubbleButton(FlxG.width -150, FlxG.height -50, "DBG ERASE DATA", eraseData);
 			
 			add(tMeTxt);
 			add(tTitle);
-			add(m_tStartButton);
+			add(m_startButton);
+			if (FlxG.debug)
+				add(m_eraseButton);
 		}
 		
 		private function startGame():void
 		{
 			// Begin fade prior to starting game
 			FlxG.fade(0xffffffff, 0.5, onFade);
+		}
+		
+		private function eraseData():void
+		{
+			SaveData.erase();
 		}
 		
 		private function onFade():void
