@@ -32,7 +32,7 @@ package dialogue
 		private var m_currentState:uint = eDIALOGUESTATE_BUTTONS;
 		private var m_dialogueData:DialogueData;
 		private var m_buttonTimer:Number = 0.0;
-		private static var m_comfortLevel:uint = 19;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
+		private static var m_comfortLevel:uint = 79;	// 0-100 - how comfortable npc is with player (cold/indifferent/acquainted/friendly/enraptured)
 		private var m_buttonsUsed:Array;
 		
 		// Graphic objects

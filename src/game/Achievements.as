@@ -57,6 +57,7 @@ package game
 				
 				var name:FlxText = new FlxText(FlxG.width - textWidth, icon.y, textWidth, "");
 				name.setFormat("Bertham", 16, 0x000000, "left");
+				name.alpha = unlocked ? 1 : 0.5;
 				m_names.add(name);
 				
 				var desc:FlxText = new FlxText(FlxG.width - textWidth, icon.y + icon.height * 0.5, textWidth, "");

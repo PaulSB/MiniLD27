@@ -13,6 +13,7 @@ package game
 	{
 		[Embed(source = '../../data/textures/npc/NPC_readingheaddown.png')] private var imgNPCreadingheaddown:Class;
 		[Embed(source = '../../data/textures/npc/NPC_readingheadup.png')] private var imgNPCreadingheadup:Class;
+		[Embed(source = '../../data/textures/npc/NPC_notreading.png')] private var imgNPCnotreading:Class;
 		[Embed(source = '../../data/textures/npc/NPC_intro_1.png')] private var imgNPCintro1:Class;
 		[Embed(source = '../../data/textures/npc/NPC_intro_2.png')] private var imgNPCintro2:Class;
 		[Embed(source = '../../data/textures/npc/NPC_intro_3.png')] private var imgNPCintro3:Class;
@@ -27,8 +28,8 @@ package game
 		
 		private const introFrames:Array = [imgNPCintro1, imgNPCintro2, imgNPCintro3, imgNPCreadingheadup];
 		private const introPositions:Array = [new FlxPoint(140, 80), new FlxPoint(120, 70), new FlxPoint(150, 55), new FlxPoint(330, 120)];
-		private const comfortFrames:Array = [imgNPCreadingheaddown, imgNPCreadingheadup, imgNPCreadingheadup, imgNPCreadingheadup, imgNPCreadingheadup];
-		private const comfortPositions:Array = [new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120)];
+		private const comfortFrames:Array = [imgNPCreadingheaddown, imgNPCreadingheadup, imgNPCreadingheadup, imgNPCnotreading, imgNPCnotreading];
+		private const comfortPositions:Array = [new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120), new FlxPoint(330, 120)];
 		
 		// Member vars
 		private var m_currentAnim:uint = eANIM_NONE;
